@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.DetailFragment">
+
+    <ImageView
+        android:id="@+id/imageCharacterDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitCenter"
+        android:minHeight="200dp"
+        android:src="@mipmap/ic_launcher_round"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/characterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageCharacterDetail"
+        android:text="name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"/>
+    <TextView
+        android:id="@+id/characterHouse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/characterName"
+        android:text="house"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="7dp"/>
+    <TextView
+        android:id="@+id/characterDateOfBirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/characterHouse"
+        android:text="ancestry"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="7dp"/>
+    <TextView
+        android:id="@+id/characterPatronus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/characterDateOfBirth"
+        android:text="patronus"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="7dp"/>
+    <TextView
+        android:id="@+id/characterActor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/characterPatronus"
+        android:text="actor"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="7dp"/>
+    <TextView
+        android:id="@+id/characterAlive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/characterActor"
+        android:text="alive"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="7dp"/>
+
+
+
+
+</RelativeLayout>
+</layout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/harrypotter_navigation"
+    app:startDestination="@id/feedFragment">
+
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.example.harrypotter.view.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.harrypotter.view.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detailFragment_to_feedFragment2"
+            app:destination="@id/feedFragment" />
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="house"
+            app:argType="string" />
+        <argument
+            android:name="image"
+            app:argType="string" />
+        <argument
+            android:name="ancestry"
+            app:argType="string" />
+        <argument
+            android:name="patronus"
+            app:argType="string" />
+        <argument
+            android:name="actor"
+            app:argType="string" />
+        <argument
+            android:name="alive"
+            app:argType="boolean" />
+
+    </fragment>
+</navigation>

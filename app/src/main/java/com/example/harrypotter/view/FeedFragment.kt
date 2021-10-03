@@ -36,23 +36,19 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //ilgili ViewModel ı fragmenta bagladık
+
         viewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
         viewModel.refreshData()
 
         characterListRecylerView.layoutManager = LinearLayoutManager(context)
         characterListRecylerView.adapter = characterAdapter
-/*
-        buttonFragment.setOnClickListener{
-            val action = FeedFragmentDirections.actionFeedFragmentToDetailFragment()
-            Navigation.findNavController(it).navigate(action)
-        }*/
+
 
         swipeRefreshLayout.setOnRefreshListener {
             characterListRecylerView.visibility = View.GONE
             characterError.visibility = View.GONE
             characterLoading.visibility = View.VISIBLE
-            viewModel.refreshData()
+            viewModel.refreshFromApi()
             swipeRefreshLayout.isRefreshing = false
         }
 
@@ -72,7 +68,7 @@ class FeedFragment : Fragment() {
 
         viewModel.characterError.observe(viewLifecycleOwner, Observer {
             error -> error?.let {
-            //Boolean true ise
+
             if(it){
                 characterError.visibility = View.VISIBLE
             }

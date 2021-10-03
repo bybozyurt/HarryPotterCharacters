@@ -37,29 +37,29 @@ class CharactersAdapter(val characterList: ArrayList<CharactersItem>) :
 
         holder.view.setOnClickListener {
             val action = FeedFragmentDirections.actionFeedFragmentToDetailFragment(
-                username = characterList[position].name,
-                actor = characterList[position].actor,
-                alive = characterList[position].alive,
-                house = characterList[position].house,
-                patronus = characterList[position].patronus,
-                ancestry = characterList[position].ancestry,
-                image = characterList[position].image
+                characterUuid = characterList[position].uuid
             )
-
             Navigation.findNavController(it).navigate(action)
 
         }
+        if (characterList[position].flag) {
+            holder.view.like.setImageResource(R.drawable.ic_favorite)
 
-        var flag = false
+        } else {
+            holder.view.like.setImageResource(R.drawable.ic_favorite_border)
+
+        }
 
         holder.view.like.setOnClickListener {
-            if (!flag) {
+
+            if (!characterList[position].flag) {
+
                 holder.view.like.setImageResource(R.drawable.ic_favorite)
-                flag = true
+                characterList[position].flag = true
 
             } else {
                 holder.view.like.setImageResource(R.drawable.ic_favorite_border)
-                flag = false
+                characterList[position].flag = false
             }
 
         }

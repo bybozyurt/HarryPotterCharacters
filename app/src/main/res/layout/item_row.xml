@@ -5,61 +5,62 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
         android:layout_margin="3dp"
+        android:elevation="5dp"
         app:cardBackgroundColor="#78BDF3"
-        android:elevation="5dp">
+        app:cardCornerRadius="10dp">
 
-<LinearLayout
-    android:padding="10dp"
-    android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/imageCharacterFeed"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:padding="3dp"
-        android:src="@mipmap/ic_launcher_round"/>
+            <ImageView
+                android:id="@+id/imageCharacterFeed"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:padding="3dp"
+                android:src="@mipmap/ic_launcher_round" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="2"
-        android:gravity="center_vertical">
-        <TextView
-            android:id="@+id/characterName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name"
-            android:padding="5dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:id="@+id/characterHouse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home"
-            android:padding="5dp"
-            android:textSize="16sp"
-            />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
-    </LinearLayout>
-    <ImageView
-        android:id="@+id/like"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:src="@drawable/ic_favorite_border"
-        android:layout_gravity="center"
+                <TextView
+                    android:id="@+id/characterName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Name"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        />
+                <TextView
+                    android:id="@+id/characterHouse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Home"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/like"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:src="@drawable/ic_favorite_border"
+
+                />
 
 
-</LinearLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

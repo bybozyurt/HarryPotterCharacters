@@ -23,26 +23,8 @@
             android:id="@+id/action_detailFragment_to_feedFragment2"
             app:destination="@id/feedFragment" />
         <argument
-            android:name="username"
-            app:argType="string" />
-        <argument
-            android:name="house"
-            app:argType="string" />
-        <argument
-            android:name="image"
-            app:argType="string" />
-        <argument
-            android:name="ancestry"
-            app:argType="string" />
-        <argument
-            android:name="patronus"
-            app:argType="string" />
-        <argument
-            android:name="actor"
-            app:argType="string" />
-        <argument
-            android:name="alive"
-            app:argType="boolean" />
-
+            android:name="characterUuid"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

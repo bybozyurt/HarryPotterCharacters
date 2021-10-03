@@ -20,9 +20,7 @@ import kotlinx.android.synthetic.main.item_row.characterName
 class DetailFragment : Fragment() {
 
     private lateinit var viewModel : DetailViewModel
-
-
-
+    private var characterUuid = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,34 +39,11 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            with(DetailFragmentArgs.fromBundle(it)){
-                val name = username
-                val house = house
-                val actor = actor
-                val patronus = patronus
-                val alive = alive
-                val image = image
-
-                characterName.text = name
-                characterHouse.text = house
-                characterActor.text = actor
-                characterAlive.text = alive.toString()
-                characterPatronus.text = patronus
-                context?.let {
-                    imageCharacterDetail.downloadFromApi(image, placeHolderProgressBar(it))
-                }
-
-            }
-
-
-
+            characterUuid = DetailFragmentArgs.fromBundle(it).characterUuid
         }
 
         viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
-        //viewModel.getDataS(characterUuid)
-
-
-
+        viewModel.getDataFromRoom(characterUuid)
         observeLiveData()
     }
 
@@ -78,10 +53,13 @@ class DetailFragment : Fragment() {
                 characterName.text = character.name
                 characterHouse.text = character.house
                 characterActor.text = character.actor
-
-
-
-        }
+                characterAlive.text = character.alive.toString()
+                characterAncestry.text = character.ancestry
+                characterPatronus.text = character.patronus
+                context?.let {
+                    imageCharacterDetail.downloadFromApi(character.image, placeHolderProgressBar(it))
+                }
+            }
 
         })
 

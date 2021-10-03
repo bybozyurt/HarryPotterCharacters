@@ -7,10 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.harrypotter.R
 import com.squareup.picasso.Picasso
-
 //ImageView Extension
-
-
 fun ImageView.downloadFromApi(url : String?, progressDrawable: CircularProgressDrawable){
 
        val options = RequestOptions()
@@ -22,17 +19,11 @@ fun ImageView.downloadFromApi(url : String?, progressDrawable: CircularProgressD
            .load(url)
            .into(this)
 
-
-
-
-
-
-
-
 }
 
 fun placeHolderProgressBar(context : Context) : CircularProgressDrawable {
        return CircularProgressDrawable(context).apply {
+           //dp olmalı
            strokeWidth = 8f
            centerRadius = 40f
            start()

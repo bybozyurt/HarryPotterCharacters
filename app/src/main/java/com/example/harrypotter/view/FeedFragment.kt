@@ -11,26 +11,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.harrypotter.R
 import com.example.harrypotter.ViewModel.FeedViewModel
 import com.example.harrypotter.adapter.CharactersAdapter
+import com.example.harrypotter.databinding.FragmentFeedBinding
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 
 class FeedFragment : Fragment() {
 
-    private lateinit var viewModel : FeedViewModel
+    private var _binding : FragmentFeedBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var viewModel: FeedViewModel
     private val characterAdapter = CharactersAdapter(arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feed, container, false)
+        _binding = FragmentFeedBinding.inflate(inflater,container,false)
+        val view = binding.root
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,8 +48,7 @@ class FeedFragment : Fragment() {
         characterListRecylerView.layoutManager = LinearLayoutManager(context)
         characterListRecylerView.adapter = characterAdapter
 
-
-        swipeRefreshLayout.setOnRefreshListener {
+        binding.swipeRefreshLayout.setOnRefreshListener {
             characterListRecylerView.visibility = View.GONE
             characterError.visibility = View.GONE
             characterLoading.visibility = View.VISIBLE
@@ -55,42 +59,44 @@ class FeedFragment : Fragment() {
         observeLiveData()
 
 
-
     }
 
-    private fun observeLiveData(){
-        viewModel.character.observe(viewLifecycleOwner, Observer {
-            character -> character?.let {
+    private fun observeLiveData() {
+        viewModel.character.observe(viewLifecycleOwner, Observer { character ->
+            character?.let {
                 characterListRecylerView.visibility = View.VISIBLE
                 characterAdapter.updateCharacterList(character)
-        }
+            }
         })
 
-        viewModel.characterError.observe(viewLifecycleOwner, Observer {
-            error -> error?.let {
+        viewModel.characterError.observe(viewLifecycleOwner, Observer { error ->
+            error?.let {
 
-            if(it){
-                characterError.visibility = View.VISIBLE
-            }
-            else{
-                characterError.visibility = View.GONE
-            }
-        }
-        })
-
-        viewModel.characterLoading.observe(viewLifecycleOwner, Observer {
-            loading -> loading?.let {
-                if(it){
-                    characterLoading.visibility = View.VISIBLE
-                    characterListRecylerView.visibility = View.GONE
+                if (it) {
+                    characterError.visibility = View.VISIBLE
+                } else {
                     characterError.visibility = View.GONE
                 }
-                else{
-                    characterLoading.visibility = View.GONE
+            }
+        })
+
+        viewModel.characterLoading.observe(viewLifecycleOwner, Observer { loading ->
+            loading?.let {
+                if (it) {
+                    binding.characterLoading.visibility = View.VISIBLE
+                    binding.characterListRecylerView.visibility = View.GONE
+                    binding.characterError.visibility = View.GONE
+                } else {
+                    binding.characterLoading.visibility = View.GONE
                 }
-        }
+            }
         })
     }
 
-    
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
 }

@@ -13,6 +13,9 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FeedViewModel(application: Application) : BaseViewModel(application){
 
@@ -52,23 +55,24 @@ class FeedViewModel(application: Application) : BaseViewModel(application){
     private fun getDataFromAPI(){
         characterLoading.value = true
 
+
         disposable.add(
             charactersService.getData()
-                .subscribeOn(Schedulers.newThread())
+               .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<CharactersItem>>(){
-                    override fun onSuccess(t: List<CharactersItem>) {
-                        storeInSQLite(t)
-                        Toast.makeText(getApplication(),"Characters from API",Toast.LENGTH_LONG).show()
+                   override fun onSuccess(t: List<CharactersItem>) {
+                       storeInSQLite(t)
+                       Toast.makeText(getApplication(),"Characters from API",Toast.LENGTH_LONG).show()
                     }
                     override fun onError(e: Throwable) {
                         characterLoading.value = false
                         characterError.value = true
                         e.printStackTrace()
                     }
-                })
-        )
-    }
+               })
+       )
+   }
 
     private fun showCharacters(characterList : List<CharactersItem>){
         character.value = characterList
@@ -97,3 +101,6 @@ class FeedViewModel(application: Application) : BaseViewModel(application){
         disposable.clear()
     }
 }
+
+
+

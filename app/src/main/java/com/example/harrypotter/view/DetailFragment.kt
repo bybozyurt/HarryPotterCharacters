@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.harrypotter.R
 import com.example.harrypotter.ViewModel.DetailViewModel
+import com.example.harrypotter.databinding.FragmentDetailBinding
+import com.example.harrypotter.databinding.FragmentFeedBinding
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 import kotlinx.android.synthetic.main.fragment_detail.*
@@ -20,6 +22,8 @@ import kotlinx.android.synthetic.main.item_row.characterName
 class DetailFragment : Fragment() {
 
     private lateinit var viewModel : DetailViewModel
+    private var _binding : FragmentDetailBinding? = null
+    private val binding get() = _binding!!
     private var characterUuid = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +34,11 @@ class DetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+    ): View {
+
+        _binding = FragmentDetailBinding.inflate(inflater,container,false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,14 +56,16 @@ class DetailFragment : Fragment() {
     private fun observeLiveData(){
         viewModel.characterLiveData.observe(viewLifecycleOwner, Observer {
             character -> character.let {
+            with(binding){
                 characterName.text = character.name
                 characterHouse.text = character.house
                 characterActor.text = character.actor
                 characterAlive.text = character.alive.toString()
                 characterAncestry.text = character.ancestry
                 characterPatronus.text = character.patronus
+            }
                 context?.let {
-                    imageCharacterDetail.downloadFromApi(character.image, placeHolderProgressBar(it))
+                    binding.imageCharacterDetail.downloadFromApi(character.image, placeHolderProgressBar(it))
                 }
             }
 

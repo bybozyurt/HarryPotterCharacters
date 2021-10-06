@@ -32,11 +32,15 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.harrypotter.FavoriteFragment"
+        android:name="com.example.harrypotter.view.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" >
         <action
             android:id="@+id/action_favoriteFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
+        <argument
+            android:name="favoriteCharacterUuid"
+            app:argType="integer"
+            android:defaultValue="0"/>
     </fragment>
 </navigation>

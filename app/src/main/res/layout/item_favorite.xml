@@ -19,51 +19,39 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/imageCharacterFeed"
+            android:id="@+id/imageCharacter_favorite"
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:src="@mipmap/ic_launcher_round"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/like"
+            app:layout_constraintEnd_toStartOf="@+id/delete"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.428" />
 
+
         <TextView
-            android:id="@+id/characterName"
+            android:id="@+id/characterName_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="5dp"
             android:text="Name"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/like"
-            app:layout_constraintHorizontal_bias="0.083"
-            app:layout_constraintStart_toEndOf="@+id/imageCharacterFeed"
+            app:layout_constraintEnd_toStartOf="@+id/delete"
+            app:layout_constraintHorizontal_bias="0.142"
+            app:layout_constraintStart_toEndOf="@+id/imageCharacter_favorite"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/characterHouse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="5dp"
-            android:text="Home"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/like"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/characterName"
-            app:layout_constraintTop_toBottomOf="@+id/characterName" />
-
         <ImageView
-            android:id="@+id/like"
+            android:id="@+id/delete"
             android:layout_width="40dp"
             android:layout_height="100dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="4dp"
-            android:src="@drawable/ic_favorite_border"
+            android:src="@drawable/ic_baseline_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

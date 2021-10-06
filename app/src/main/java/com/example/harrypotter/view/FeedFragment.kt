@@ -1,12 +1,11 @@
 package com.example.harrypotter.view
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.harrypotter.R
 import com.example.harrypotter.ViewModel.FeedViewModel
@@ -40,6 +39,7 @@ class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
 
         viewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
@@ -96,6 +96,19 @@ class FeedFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.options_menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val action = FeedFragmentDirections.actionFeedFragmentToFavoriteFragment()
+        when(item.itemId){
+            R.id.favorite_menu -> view?.let { Navigation.findNavController(it).navigate(action) }
+        }
+        return true
     }
 
 

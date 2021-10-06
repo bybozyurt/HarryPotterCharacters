@@ -13,10 +13,7 @@ import com.example.harrypotter.databinding.FragmentDetailBinding
 import com.example.harrypotter.databinding.FragmentFeedBinding
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
-import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.item_row.*
-import kotlinx.android.synthetic.main.item_row.characterHouse
-import kotlinx.android.synthetic.main.item_row.characterName
+
 
 
 class DetailFragment : Fragment() {

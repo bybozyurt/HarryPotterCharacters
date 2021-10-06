@@ -100,6 +100,7 @@ class FeedViewModel(application: Application) : BaseViewModel(application){
         super.onCleared()
         disposable.clear()
     }
+
 }
 
 

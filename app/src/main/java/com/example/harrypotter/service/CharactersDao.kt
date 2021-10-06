@@ -21,6 +21,10 @@ interface CharactersDao {
     suspend fun deleteAllCharacters()
 
 
+    @Insert
+    suspend fun addFavoriteCharacter(characters : CharactersItem)
+
+
 
 
 

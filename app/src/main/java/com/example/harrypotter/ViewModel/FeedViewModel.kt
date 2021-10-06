@@ -55,23 +55,25 @@ class FeedViewModel(application: Application) : BaseViewModel(application){
     private fun getDataFromAPI(){
         characterLoading.value = true
 
+        charactersService.getData()
+            .enqueue(object : Callback<List<CharactersItem>>{
+                override fun onResponse(
+                    call: Call<List<CharactersItem>>,
+                    response: Response<List<CharactersItem>>
+                ) {
+                    response.body()?.let { storeInSQLite(it) }
+                    Toast.makeText(getApplication(),"Characters from API",Toast.LENGTH_LONG).show()
+                }
 
-        disposable.add(
-            charactersService.getData()
-               .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<List<CharactersItem>>(){
-                   override fun onSuccess(t: List<CharactersItem>) {
-                       storeInSQLite(t)
-                       Toast.makeText(getApplication(),"Characters from API",Toast.LENGTH_LONG).show()
-                    }
-                    override fun onError(e: Throwable) {
-                        characterLoading.value = false
-                        characterError.value = true
-                        e.printStackTrace()
-                    }
-               })
-       )
+                override fun onFailure(call: Call<List<CharactersItem>>, t: Throwable) {
+                    characterLoading.value = false
+                    characterError.value = true
+                    t.printStackTrace()
+
+                }
+
+            })
+        
    }
 
     private fun showCharacters(characterList : List<CharactersItem>){

@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.harrypotter.R
 import com.example.harrypotter.ViewModel.FavoriteViewModel
 import com.example.harrypotter.adapter.FavoriteAdapter
 import com.example.harrypotter.databinding.FragmentFavoriteBinding
 import com.example.harrypotter.databinding.FragmentFeedBinding
+import kotlinx.android.synthetic.main.fragment_favorite.*
 
 
 class FavoriteFragment : Fragment() {
@@ -38,6 +40,9 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
+
+        recyler_view_favorite.layoutManager = LinearLayoutManager(context)
+        recyler_view_favorite.adapter = favoriteAdapter
 
 
     }

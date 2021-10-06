@@ -18,7 +18,7 @@ class CharactersService {
         .build()
         .create(CharactersApi::class.java)
 
-    fun getData() : Single<List<CharactersItem>>{
+    fun getData() : Call<List<CharactersItem>>{
         return api.getCharacters()
     }
 }

@@ -8,6 +8,6 @@ import retrofit2.http.GET
 interface CharactersApi {
 
     @GET("api/characters")
-    fun getCharacters() : Single<List<CharactersItem>>
+    fun getCharacters() : Call<List<CharactersItem>>
 
 }

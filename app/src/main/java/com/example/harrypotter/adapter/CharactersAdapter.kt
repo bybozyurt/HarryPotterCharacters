@@ -1,5 +1,7 @@
 package com.example.harrypotter.adapter
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.harrypotter.R
 import com.example.harrypotter.databinding.ItemRowBinding
 import com.example.harrypotter.model.CharactersItem
+import com.example.harrypotter.service.CharacterDatabase
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 import com.example.harrypotter.view.FeedFragmentDirections
@@ -18,7 +21,7 @@ import kotlinx.android.synthetic.main.item_row.view.characterHouse
 import kotlinx.android.synthetic.main.item_row.view.characterName
 
 
-class CharactersAdapter(val characterList: ArrayList<CharactersItem>) :
+class CharactersAdapter(val characterList: ArrayList<CharactersItem>, private val updateCharacter : (CharactersItem) -> Unit) :
     RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
 
     inner class CharactersViewHolder(val binding: ItemRowBinding) :
@@ -32,6 +35,7 @@ class CharactersAdapter(val characterList: ArrayList<CharactersItem>) :
     }
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
+
         with(holder) {
             with(characterList[position]) {
                 binding.characterName.text = this.name
@@ -55,7 +59,7 @@ class CharactersAdapter(val characterList: ArrayList<CharactersItem>) :
                     if (!this.flag) {
                         binding.like.setImageResource(R.drawable.ic_favorite)
                         this.flag = true
-
+                        updateCharacter(this)
                     } else {
                         binding.like.setImageResource(R.drawable.ic_favorite_border)
                         this.flag = false
@@ -77,4 +81,6 @@ class CharactersAdapter(val characterList: ArrayList<CharactersItem>) :
         notifyDataSetChanged()
 
     }
+
+
 }

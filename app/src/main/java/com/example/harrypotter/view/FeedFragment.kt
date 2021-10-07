@@ -19,7 +19,8 @@ class FeedFragment : Fragment() {
     private var _binding : FragmentFeedBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: FeedViewModel
-    private val characterAdapter = CharactersAdapter(arrayListOf())
+    private lateinit var characterAdapter : CharactersAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +42,19 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-
         viewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
+
         viewModel.refreshData()
+
+        characterAdapter = CharactersAdapter(arrayListOf(),updateCharacter = {
+            viewModel.updateCharacter(
+                it
+            )
+        })
 
         characterListRecylerView.layoutManager = LinearLayoutManager(context)
         characterListRecylerView.adapter = characterAdapter
+
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             characterListRecylerView.visibility = View.GONE

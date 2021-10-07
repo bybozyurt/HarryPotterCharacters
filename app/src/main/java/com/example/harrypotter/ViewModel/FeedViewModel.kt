@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.harrypotter.model.CharactersItem
 import com.example.harrypotter.service.CharacterDatabase
 import com.example.harrypotter.service.CharactersService
@@ -101,6 +102,14 @@ class FeedViewModel(application: Application) : BaseViewModel(application){
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
+    }
+
+    fun updateCharacter(character : CharactersItem){
+        viewModelScope.launch {
+            val dao = CharacterDatabase(getApplication()).characterDao()
+            dao.updateCharacter(character)
+        }
+
     }
 
 }

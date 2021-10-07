@@ -45,6 +45,8 @@ class FavoriteFragment : Fragment() {
         recyler_view_favorite.adapter = favoriteAdapter
 
 
+
+
     }
 
 

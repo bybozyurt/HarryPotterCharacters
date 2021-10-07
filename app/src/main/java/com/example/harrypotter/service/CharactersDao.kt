@@ -1,8 +1,6 @@
 package com.example.harrypotter.service
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.harrypotter.model.CharactersItem
 
 @Dao
@@ -20,9 +18,14 @@ interface CharactersDao {
     @Query("DELETE FROM charactersitem")
     suspend fun deleteAllCharacters()
 
+    @Update
+    suspend fun updateCharacter(character : CharactersItem)
 
-    @Insert
-    suspend fun addFavoriteCharacter(characters : CharactersItem)
+//    @Query("SELECT * FROM charactersitem WHERE uuid = 1")
+//    suspend fun getFavoriteCharacters() : List<CharactersItem>
+
+//    @Query("SELECT EXISTS (SELECT 1 FROM charactersitem WHERE uuid= :id)")
+//    suspend fun isFavorite(id : Int)
 
 
 

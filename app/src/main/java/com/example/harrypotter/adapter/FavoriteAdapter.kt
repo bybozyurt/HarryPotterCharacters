@@ -33,6 +33,7 @@ class FavoriteAdapter(val favoriteList : ArrayList<CharactersItem>) : RecyclerVi
                     this.image,
                     placeHolderProgressBar(itemView.context)
                 )
+                binding.delete.visibility = View.GONE
 
             }
         }
@@ -40,5 +41,12 @@ class FavoriteAdapter(val favoriteList : ArrayList<CharactersItem>) : RecyclerVi
 
     override fun getItemCount(): Int {
         return favoriteList.size
+    }
+
+    fun updateCharacterList(newCharacterList : List<CharactersItem>){
+        favoriteList.clear()
+        favoriteList.addAll(newCharacterList)
+        notifyDataSetChanged()
+
     }
 }

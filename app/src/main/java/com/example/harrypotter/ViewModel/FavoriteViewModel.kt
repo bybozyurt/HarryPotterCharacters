@@ -1,6 +1,7 @@
 package com.example.harrypotter.ViewModel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.harrypotter.model.CharactersItem
@@ -9,18 +10,18 @@ import kotlinx.coroutines.launch
 
 class FavoriteViewModel(application: Application) : BaseViewModel(application) {
 
-    val favoriteCharacter = MutableLiveData<List<CharactersItem>>()
+    val characters = MutableLiveData<List<CharactersItem>>()
 
-    private fun getDataFromSQLite(){
+    fun getFavoriteCharactersFromSQLite(){
         launch {
-            //dao
-            //showCharacters() method
-
+            val favoriteCharacters = CharacterDatabase(getApplication()).characterDao().getFavoriteCharacters()
+            showCharacters(favoriteCharacters)
+            Toast.makeText(getApplication(),"Get favorite characters from sql",Toast.LENGTH_LONG).show()
         }
     }
 
     private fun showCharacters(favoritelist : List<CharactersItem>){
-        favoriteCharacter.value = favoritelist
+        characters.value = favoritelist
     }
 
 

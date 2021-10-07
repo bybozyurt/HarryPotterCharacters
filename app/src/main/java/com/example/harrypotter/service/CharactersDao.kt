@@ -21,8 +21,8 @@ interface CharactersDao {
     @Update
     suspend fun updateCharacter(character : CharactersItem)
 
-//    @Query("SELECT * FROM charactersitem WHERE uuid = 1")
-//    suspend fun getFavoriteCharacters() : List<CharactersItem>
+    @Query("SELECT * FROM charactersitem WHERE flag")
+    suspend fun getFavoriteCharacters() : List<CharactersItem>
 
 //    @Query("SELECT EXISTS (SELECT 1 FROM charactersitem WHERE uuid= :id)")
 //    suspend fun isFavorite(id : Int)

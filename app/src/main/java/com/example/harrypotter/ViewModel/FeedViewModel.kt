@@ -109,8 +109,9 @@ class FeedViewModel(application: Application) : BaseViewModel(application){
             val dao = CharacterDatabase(getApplication()).characterDao()
             dao.updateCharacter(character)
         }
-
     }
+
+
 
 }
 

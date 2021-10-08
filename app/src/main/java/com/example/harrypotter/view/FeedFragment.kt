@@ -47,10 +47,9 @@ class FeedFragment : Fragment() {
         viewModel.refreshData()
 
         characterAdapter = CharactersAdapter(arrayListOf(),updateCharacter = {
-            viewModel.updateCharacter(
-                it
+            viewModel.updateCharacter(it)
+        }
             )
-        })
 
         characterListRecylerView.layoutManager = LinearLayoutManager(context)
         characterListRecylerView.adapter = characterAdapter

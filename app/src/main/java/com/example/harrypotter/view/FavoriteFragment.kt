@@ -55,11 +55,11 @@ class FavoriteFragment : Fragment() {
 
     private fun observeLiveData(){
         viewModel.characters.observe(viewLifecycleOwner, Observer {
-            characters -> characters.let {
+            characters -> characters?.let {
                 recyler_view_favorite.visibility = View.VISIBLE
                 favoriteAdapter.updateCharacterList(characters)
 
-        }
+            }
         })
     }
 

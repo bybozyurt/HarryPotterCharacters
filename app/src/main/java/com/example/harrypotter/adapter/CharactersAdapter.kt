@@ -21,7 +21,10 @@ import kotlinx.android.synthetic.main.item_row.view.characterHouse
 import kotlinx.android.synthetic.main.item_row.view.characterName
 
 
-class CharactersAdapter(val characterList: ArrayList<CharactersItem>, private val updateCharacter : (CharactersItem) -> Unit) :
+class CharactersAdapter(val characterList: ArrayList<CharactersItem>,
+                        private val updateCharacter : (CharactersItem) -> Unit
+
+) :
     RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
 
     inner class CharactersViewHolder(val binding: ItemRowBinding) :
@@ -60,9 +63,13 @@ class CharactersAdapter(val characterList: ArrayList<CharactersItem>, private va
                         binding.like.setImageResource(R.drawable.ic_favorite)
                         this.flag = true
                         updateCharacter(this)
+
                     } else {
                         binding.like.setImageResource(R.drawable.ic_favorite_border)
                         this.flag = false
+                        updateCharacter(this)
+
+
                     }
                 }
                 binding.imageCharacterFeed.downloadFromApi(

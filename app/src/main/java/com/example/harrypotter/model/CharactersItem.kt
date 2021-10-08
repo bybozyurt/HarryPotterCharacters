@@ -75,7 +75,8 @@ data class CharactersItem(
 
     @ColumnInfo(name = "flag")
     @Expose
-    var flag : Boolean = false
+    var flag : Boolean = false,
+
 )
     {
         @PrimaryKey(autoGenerate = true)

@@ -1,12 +1,14 @@
 package com.example.harrypotter.service
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.harrypotter.model.CharactersItem
 
 @Dao
 interface CharactersDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(vararg characters : CharactersItem) : List<Long>
 
     @Query("SELECT * FROM charactersitem")
@@ -21,8 +23,10 @@ interface CharactersDao {
     @Update
     suspend fun updateCharacter(character : CharactersItem)
 
-    @Query("SELECT * FROM charactersitem WHERE flag")
+    @Query("SELECT * FROM charactersitem WHERE flag = 1")
     suspend fun getFavoriteCharacters() : List<CharactersItem>
+
+
 
 //    @Query("SELECT EXISTS (SELECT 1 FROM charactersitem WHERE uuid= :id)")
 //    suspend fun isFavorite(id : Int)

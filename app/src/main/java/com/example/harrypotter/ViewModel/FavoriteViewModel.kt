@@ -16,7 +16,7 @@ class FavoriteViewModel(application: Application) : BaseViewModel(application) {
         launch {
             val favoriteCharacters = CharacterDatabase(getApplication()).characterDao().getFavoriteCharacters()
             showCharacters(favoriteCharacters)
-            Toast.makeText(getApplication(),"Get favorite characters from sql",Toast.LENGTH_LONG).show()
+            
         }
     }
 

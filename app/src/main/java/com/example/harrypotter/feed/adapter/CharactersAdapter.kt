@@ -1,28 +1,20 @@
-package com.example.harrypotter.adapter
+package com.example.harrypotter.feed.adapter
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.harrypotter.R
 import com.example.harrypotter.databinding.ItemRowBinding
+import com.example.harrypotter.feed.view.FeedFragmentDirections
 import com.example.harrypotter.model.CharactersItem
-import com.example.harrypotter.service.CharacterDatabase
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
-import com.example.harrypotter.view.FeedFragmentDirections
-import kotlinx.android.synthetic.main.fragment_detail.view.*
-import kotlinx.android.synthetic.main.item_row.view.*
-import kotlinx.android.synthetic.main.item_row.view.characterHouse
-import kotlinx.android.synthetic.main.item_row.view.characterName
 
-
-class CharactersAdapter(val characterList: ArrayList<CharactersItem>,
-                        private val updateCharacter : (CharactersItem) -> Unit
+//interface ile yapılacak parametreler
+class CharactersAdapter(
+    val characterList: ArrayList<CharactersItem>,
+    private val updateCharacter: (CharactersItem) -> Unit
 
 ) :
     RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
@@ -79,9 +71,11 @@ class CharactersAdapter(val characterList: ArrayList<CharactersItem>,
             }
         }
     }
+
     override fun getItemCount(): Int {
         return characterList.size
     }
+
     fun updateCharacterList(newCharacterList: List<CharactersItem>) {
         characterList.clear()
         characterList.addAll(newCharacterList)

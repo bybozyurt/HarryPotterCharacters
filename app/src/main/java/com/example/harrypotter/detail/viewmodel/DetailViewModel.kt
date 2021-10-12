@@ -1,8 +1,8 @@
-package com.example.harrypotter.ViewModel
+package com.example.harrypotter.detail.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.example.harrypotter.ViewModel.BaseViewModel
 import com.example.harrypotter.model.CharactersItem
 import com.example.harrypotter.service.CharacterDatabase
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.example.harrypotter.view
+package com.example.harrypotter.detail.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.harrypotter.R
-import com.example.harrypotter.ViewModel.DetailViewModel
+import com.example.harrypotter.detail.viewmodel.DetailViewModel
 import com.example.harrypotter.databinding.FragmentDetailBinding
-import com.example.harrypotter.databinding.FragmentFeedBinding
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 

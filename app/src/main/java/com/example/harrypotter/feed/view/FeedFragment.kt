@@ -1,4 +1,4 @@
-package com.example.harrypotter.view
+package com.example.harrypotter.feed.view
 
 import android.os.Bundle
 import android.view.*
@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.harrypotter.R
-import com.example.harrypotter.ViewModel.FeedViewModel
-import com.example.harrypotter.adapter.CharactersAdapter
+import com.example.harrypotter.feed.viewmodel.FeedViewModel
+import com.example.harrypotter.feed.adapter.CharactersAdapter
 import com.example.harrypotter.databinding.FragmentFeedBinding
 import kotlinx.android.synthetic.main.fragment_feed.*
 

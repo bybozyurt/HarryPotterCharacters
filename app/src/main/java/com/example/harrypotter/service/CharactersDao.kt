@@ -28,11 +28,6 @@ interface CharactersDao {
 
 
 
-//    @Query("SELECT EXISTS (SELECT 1 FROM charactersitem WHERE uuid= :id)")
-//    suspend fun isFavorite(id : Int)
-
-
-
 
 
 }

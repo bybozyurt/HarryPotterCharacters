@@ -1,16 +1,13 @@
-package com.example.harrypotter.adapter
+package com.example.harrypotter.favorite.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.harrypotter.R
 import com.example.harrypotter.databinding.ItemFavoriteBinding
-import com.example.harrypotter.databinding.ItemRowBinding
 import com.example.harrypotter.model.CharactersItem
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
-import kotlinx.android.synthetic.main.item_favorite.view.*
 
 class FavoriteAdapter(val favoriteList : ArrayList<CharactersItem>) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 

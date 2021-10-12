@@ -1,4 +1,4 @@
-package com.example.harrypotter.view
+package com.example.harrypotter.favorite.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,13 +8,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.harrypotter.R
-import com.example.harrypotter.ViewModel.FavoriteViewModel
-import com.example.harrypotter.adapter.FavoriteAdapter
+import com.example.harrypotter.favorite.viewmodel.FavoriteViewModel
+import com.example.harrypotter.favorite.adapter.FavoriteAdapter
 import com.example.harrypotter.databinding.FragmentFavoriteBinding
-import com.example.harrypotter.databinding.FragmentFeedBinding
 import kotlinx.android.synthetic.main.fragment_favorite.*
-import kotlinx.android.synthetic.main.item_favorite.*
 
 
 class FavoriteFragment : Fragment() {

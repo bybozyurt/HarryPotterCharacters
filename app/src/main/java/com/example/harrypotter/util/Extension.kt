@@ -23,7 +23,6 @@ fun ImageView.downloadFromApi(url : String?, progressDrawable: CircularProgressD
 
 fun placeHolderProgressBar(context : Context) : CircularProgressDrawable {
        return CircularProgressDrawable(context).apply {
-           //dp olmalı
            strokeWidth = 8f
            centerRadius = 40f
            start()

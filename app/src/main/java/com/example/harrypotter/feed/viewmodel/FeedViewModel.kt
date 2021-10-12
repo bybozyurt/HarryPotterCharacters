@@ -1,18 +1,15 @@
-package com.example.harrypotter.ViewModel
+package com.example.harrypotter.feed.viewmodel
 
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.harrypotter.ViewModel.BaseViewModel
 import com.example.harrypotter.model.CharactersItem
 import com.example.harrypotter.service.CharacterDatabase
 import com.example.harrypotter.service.CharactersService
 import com.example.harrypotter.util.CustomSharedPreferences
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,7 +43,7 @@ class FeedViewModel(application: Application) : BaseViewModel(application){
 
     private fun getDataFromSQLite(){
         characterLoading.value = true
-        launch {
+        viewModelScope.launch {
             val characters = CharacterDatabase(getApplication()).characterDao().getAllCharacters()
             showCharacters(characters)
             Toast.makeText(getApplication(),"Characters from SQLite",Toast.LENGTH_LONG).show()
@@ -84,7 +81,7 @@ class FeedViewModel(application: Application) : BaseViewModel(application){
     }
 
     private fun storeInSQLite(list : List<CharactersItem>){
-        launch {
+        viewModelScope.launch {
             val dao = CharacterDatabase(getApplication()).characterDao()
             dao.deleteAllCharacters()
             val listLong = dao.insertAll(*list.toTypedArray())
@@ -105,7 +102,7 @@ class FeedViewModel(application: Application) : BaseViewModel(application){
     }
 
     fun updateCharacter(character : CharactersItem){
-        viewModelScope.launch {
+        launch {
             val dao = CharacterDatabase(getApplication()).characterDao()
             dao.updateCharacter(character)
         }

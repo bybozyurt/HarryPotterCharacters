@@ -1,4 +1,4 @@
-package com.example.harrypotter.feed.view
+package com.example.harrypotter.feed
 
 import android.os.Bundle
 import android.view.*
@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.harrypotter.R
+import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentFeedBinding
-import com.example.harrypotter.feed.adapter.CharactersAdapter
-import com.example.harrypotter.feed.viewmodel.FeedViewModel
+import com.example.harrypotter.util.IUpdateCharacter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_feed.*
 
@@ -124,11 +124,14 @@ class FeedFragment : Fragment() {
         characterAdapter = CharactersAdapter(arrayListOf(), updateCharacter = {
             viewModel.updateCharacter(it)
         }
+
         )
 
         characterListRecylerView.layoutManager = LinearLayoutManager(context)
         characterListRecylerView.adapter = characterAdapter
     }
+
+
 
 
 }

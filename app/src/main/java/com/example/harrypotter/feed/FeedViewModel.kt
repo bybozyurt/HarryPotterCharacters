@@ -1,4 +1,4 @@
-package com.example.harrypotter.feed.viewmodel
+package com.example.harrypotter.feed
 
 import android.app.Application
 import android.widget.Toast
@@ -9,6 +9,7 @@ import com.example.harrypotter.data.local.CharacterDatabase
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.di.CharactersService
 import com.example.harrypotter.util.CustomSharedPreferences
+import com.example.harrypotter.util.IUpdateCharacter
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -17,7 +18,7 @@ import retrofit2.Response
 
 class FeedViewModel(
     application: Application,
-) : BaseViewModel(application) {
+) : BaseViewModel(application),IUpdateCharacter {
 
     private val charactersService = CharactersService()
     private val disposable = CompositeDisposable()
@@ -104,8 +105,10 @@ class FeedViewModel(
         disposable.clear()
     }
 
-    fun updateCharacter(character: CharactersItem) {
-        launch {
+
+
+    override fun updateCharacter(character: CharactersItem) {
+        viewModelScope.launch {
             val dao = CharacterDatabase(getApplication()).characterDao()
             dao.updateCharacter(character)
         }

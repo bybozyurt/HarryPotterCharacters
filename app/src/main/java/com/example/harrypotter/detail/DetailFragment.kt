@@ -1,4 +1,4 @@
-package com.example.harrypotter.detail.view
+package com.example.harrypotter.detail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,14 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.harrypotter.detail.viewmodel.DetailViewModel
+import com.example.harrypotter.R
+import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentDetailBinding
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 
 
 
-class DetailFragment : Fragment() {
+class DetailFragment() : Fragment() {
 
     private lateinit var viewModel : DetailViewModel
     private var _binding : FragmentDetailBinding? = null
@@ -55,12 +56,31 @@ class DetailFragment : Fragment() {
                 characterName.text = character.name
                 characterHouse.text = character.house
                 characterActor.text = character.actor
-                characterAlive.text = character.alive.toString()
                 characterAncestry.text = character.ancestry
                 characterPatronus.text = character.patronus
             }
                 context?.let {
                     binding.imageCharacterDetail.downloadFromApi(character.image, placeHolderProgressBar(it))
+                }
+            }
+
+            if (character.flag){
+                binding.detailLike.setImageResource(R.drawable.ic_favorite)
+            }
+            else{
+                binding.detailLike.setImageResource(R.drawable.ic_favorite_border)
+            }
+
+            binding.detailLike.setOnClickListener {
+                if(!character.flag){
+                    binding.detailLike.setImageResource(R.drawable.ic_favorite)
+                    character.flag = true
+                    viewModel.updateCharacter(character)
+                }
+                else{
+                    binding.detailLike.setImageResource(R.drawable.ic_favorite_border)
+                    character.flag = false
+                    viewModel.updateCharacter(character)
                 }
             }
 

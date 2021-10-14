@@ -1,0 +1,71 @@
+package com.example.harrypotter.favorite
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.harrypotter.R
+import com.example.harrypotter.data.model.CharactersItem
+import com.example.harrypotter.databinding.ItemFavoriteBinding
+import com.example.harrypotter.util.downloadFromApi
+import com.example.harrypotter.util.placeHolderProgressBar
+
+class FavoriteAdapter(
+    val favoriteList: ArrayList<CharactersItem>,
+    private val updateCharacter: (CharactersItem) -> Unit
+) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
+
+
+    inner class FavoriteViewHolder(var binding: ItemFavoriteBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
+        val binding = ItemFavoriteBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return FavoriteViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
+        with(holder){
+            with(favoriteList[position]){
+                binding.characterNameFavorite.text = this.name
+                binding.imageCharacterFavorite.downloadFromApi(
+                    this.image,
+                    placeHolderProgressBar(itemView.context)
+                )
+
+                if (this.flag) {
+                    binding.favoriteLike.setImageResource(R.drawable.ic_favorite)
+
+                } else {
+                    binding.favoriteLike.setImageResource(R.drawable.ic_favorite_border)
+
+                }
+                binding.favoriteLike.setOnClickListener {
+                    if (!this.flag) {
+                        binding.favoriteLike.setImageResource(R.drawable.ic_favorite)
+                        this.flag = true
+                        updateCharacter(this)
+
+                    } else {
+                        binding.favoriteLike.setImageResource(R.drawable.ic_favorite_border)
+                        this.flag = false
+                        updateCharacter(this)
+
+                    }
+                }
+
+            }
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return favoriteList.size
+    }
+
+    fun updateCharacterList(newCharacterList : List<CharactersItem>){
+        favoriteList.clear()
+        favoriteList.addAll(newCharacterList)
+        notifyDataSetChanged()
+
+    }
+}

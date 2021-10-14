@@ -1,4 +1,4 @@
-package com.example.harrypotter.feed.adapter
+package com.example.harrypotter.feed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,18 +6,17 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.harrypotter.R
 import com.example.harrypotter.databinding.ItemRowBinding
-import com.example.harrypotter.feed.view.FeedFragmentDirections
+import com.example.harrypotter.feed.FeedFragmentDirections
 import com.example.harrypotter.data.model.CharactersItem
+import com.example.harrypotter.util.IUpdateCharacter
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 
 //interface ile yapılacak parametreler
 class CharactersAdapter(
     val characterList: ArrayList<CharactersItem>,
-    private val updateCharacter: (CharactersItem) -> Unit
-
-) :
-    RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
+    private val updateCharacter: (CharactersItem) -> Unit) :
+    RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>(){
 
     inner class CharactersViewHolder(val binding: ItemRowBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -60,8 +59,6 @@ class CharactersAdapter(
                         binding.like.setImageResource(R.drawable.ic_favorite_border)
                         this.flag = false
                         updateCharacter(this)
-
-
                     }
                 }
                 binding.imageCharacterFeed.downloadFromApi(
@@ -82,6 +79,8 @@ class CharactersAdapter(
         notifyDataSetChanged()
 
     }
+
+
 
 
 }

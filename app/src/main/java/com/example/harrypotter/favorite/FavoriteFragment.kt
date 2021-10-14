@@ -38,16 +38,9 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
-        viewModel.getFavoriteCharactersFromSQLite()
-
-        recyler_view_favorite.layoutManager = LinearLayoutManager(context)
-        recyler_view_favorite.adapter = favoriteAdapter
-
+        initViewModel()
+        recylerAdapter()
         observeLiveData()
-
-
     }
 
     private fun observeLiveData(){
@@ -57,8 +50,17 @@ class FavoriteFragment : Fragment() {
                 favoriteAdapter.updateCharacterList(characters)
             }
 
-
         })
+    }
+
+    fun initViewModel(){
+        viewModel = ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
+        viewModel.getFavoriteCharactersFromSQLite()
+    }
+
+    fun recylerAdapter(){
+        recyler_view_favorite.layoutManager = LinearLayoutManager(context)
+        recyler_view_favorite.adapter = favoriteAdapter
     }
 
 

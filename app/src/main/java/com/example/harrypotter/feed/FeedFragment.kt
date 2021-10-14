@@ -41,18 +41,10 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-
         initViewModel()
-
         observeFeedState()
-
-        viewModel.refreshData()
-
         recylerAdapter()
-
         swipeRefresh()
-
-
     }
 
     override fun onDestroyView() {
@@ -75,6 +67,7 @@ class FeedFragment : Fragment() {
 
     fun initViewModel() {
         viewModel = ViewModelProviders.of(requireActivity()).get(FeedViewModel::class.java)
+        viewModel.refreshData()
     }
 
     fun observeFeedState() {

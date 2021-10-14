@@ -29,6 +29,9 @@
             android:name="characterUuid"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_detailFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -42,5 +45,8 @@
             android:name="favoriteCharacterUuid"
             app:argType="integer"
             android:defaultValue="0"/>
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 </navigation>

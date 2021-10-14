@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.harrypotter.ViewModel.BaseViewModel
 import com.example.harrypotter.data.local.CharacterDatabase
 import com.example.harrypotter.data.model.CharactersItem
-import com.example.harrypotter.di.CharactersService
+import com.example.harrypotter.network.CharactersService
 import com.example.harrypotter.util.CustomSharedPreferences
 import com.example.harrypotter.util.IUpdateCharacter
 import io.reactivex.disposables.CompositeDisposable

@@ -2,10 +2,12 @@ package com.example.harrypotter.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.harrypotter.R
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.ItemFavoriteBinding
+import com.example.harrypotter.feed.FeedFragmentDirections
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 
@@ -32,6 +34,14 @@ class FavoriteAdapter(
                     this.image,
                     placeHolderProgressBar(itemView.context)
                 )
+
+                itemView.setOnClickListener {
+                    val action = FavoriteFragmentDirections.actionFavoriteFragmentToDetailFragment(
+                        characterUuid = this.uuid
+                    )
+                    Navigation.findNavController(it).navigate(action)
+
+                }
 
                 if (this.flag) {
                     binding.favoriteLike.setImageResource(R.drawable.ic_favorite)

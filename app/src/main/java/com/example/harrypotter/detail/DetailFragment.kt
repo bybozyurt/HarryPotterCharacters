@@ -1,18 +1,17 @@
 package com.example.harrypotter.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.example.harrypotter.R
-import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentDetailBinding
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
-
 
 
 class DetailFragment() : Fragment() {
@@ -39,13 +38,8 @@ class DetailFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        arguments?.let {
-            characterUuid = DetailFragmentArgs.fromBundle(it).characterUuid
-        }
-
-        viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
-        viewModel.getDataFromRoom(characterUuid)
+        getArgument()
+        initViewModel()
         observeLiveData()
     }
 
@@ -72,20 +66,32 @@ class DetailFragment() : Fragment() {
             }
 
             binding.detailLike.setOnClickListener {
-                if(!character.flag){
+                if (!character.flag) {
                     binding.detailLike.setImageResource(R.drawable.ic_favorite)
                     character.flag = true
                     viewModel.updateCharacter(character)
-                }
-                else{
+                } else {
                     binding.detailLike.setImageResource(R.drawable.ic_favorite_border)
                     character.flag = false
                     viewModel.updateCharacter(character)
                 }
             }
-
+            binding.imageCharacterDetail.setOnClickListener {
+                val action = DetailFragmentDirections.actionDetailFragmentToFeedFragment2()
+                Navigation.findNavController(it).navigate(action)
+            }
         })
+    }
 
+    fun initViewModel(){
+        viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
+        viewModel.getDataFromRoom(characterUuid)
+    }
+
+    fun getArgument(){
+        arguments?.let {
+            characterUuid = DetailFragmentArgs.fromBundle(it).characterUuid
+        }
     }
 
 

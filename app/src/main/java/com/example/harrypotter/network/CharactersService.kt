@@ -1,4 +1,4 @@
-package com.example.harrypotter.di
+package com.example.harrypotter.network
 
 import com.example.harrypotter.data.remote.CharactersApi
 import com.example.harrypotter.util.Constants.BASE_URL
@@ -10,8 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
+
 class CharactersService {
 
 //    @Singleton
@@ -21,9 +20,6 @@ class CharactersService {
 //
 //    }
 
-
-    @Singleton
-    @Provides
     fun getRetroInstance(): CharactersApi {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)

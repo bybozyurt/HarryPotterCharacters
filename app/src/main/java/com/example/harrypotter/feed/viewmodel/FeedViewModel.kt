@@ -28,11 +28,6 @@ class FeedViewModel(
     //nano second
     private var refreshTime = 10 * 60 * 1000 * 1000 * 1000L
 
-    val character = MutableLiveData<List<CharactersItem>>()
-    val characterError = MutableLiveData<Boolean>()
-    val characterLoading = MutableLiveData<Boolean>()
-
-
     fun refreshData() {
         val updateTime = customPreferences.getTime()
         if(updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime){
@@ -47,7 +42,6 @@ class FeedViewModel(
     }
 
     private fun getDataFromSQLite(){
-        characterLoading.value = true
         feedState.value = FeedViewState.FeedLoadingViewState(true)
         viewModelScope.launch {
             val characters = CharacterDatabase(getApplication()).characterDao().getAllCharacters()
@@ -57,7 +51,6 @@ class FeedViewModel(
     }
 
     private fun getDataFromAPI() {
-        //characterLoading.value = true
         feedState.value = FeedViewState.FeedLoadingViewState(true)
 
         charactersService.getRetroInstance().getCharacters()
@@ -74,8 +67,6 @@ class FeedViewModel(
                 override fun onFailure(call: Call<List<CharactersItem>>, t: Throwable) {
                     feedState.value = FeedViewState.FeedLoadingViewState(false)
                     feedState.value = FeedViewState.FeedErrorViewState(true)
-                    //characterLoading.value = false
-                    //characterError.value = true
                     t.printStackTrace()
 
                 }
@@ -86,12 +77,10 @@ class FeedViewModel(
     }
 
     private fun showCharacters(characterList : List<CharactersItem>) {
-        //character.value = characterList
         feedState.value = FeedViewState.FeedCharacterList(characterList)
         feedState.value = FeedViewState.FeedErrorViewState(false)
         feedState.value = FeedViewState.FeedLoadingViewState(false)
-        //characterError.value = false
-        //characterLoading.value = false
+
     }
 
     private fun storeInSQLite(list : List<CharactersItem>){

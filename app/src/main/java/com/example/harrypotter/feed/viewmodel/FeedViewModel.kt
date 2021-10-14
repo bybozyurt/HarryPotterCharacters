@@ -5,8 +5,8 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.harrypotter.ViewModel.BaseViewModel
-import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.data.local.CharacterDatabase
+import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.di.CharactersService
 import com.example.harrypotter.util.CustomSharedPreferences
 import io.reactivex.disposables.CompositeDisposable
@@ -23,6 +23,8 @@ class FeedViewModel(
     private val disposable = CompositeDisposable()
     private var customPreferences = CustomSharedPreferences(getApplication())
 
+    var feedState: MutableLiveData<FeedViewState> = MutableLiveData<FeedViewState>()
+
     //nano second
     private var refreshTime = 10 * 60 * 1000 * 1000 * 1000L
 
@@ -31,7 +33,7 @@ class FeedViewModel(
     val characterLoading = MutableLiveData<Boolean>()
 
 
-    fun refreshData(){
+    fun refreshData() {
         val updateTime = customPreferences.getTime()
         if(updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime){
             getDataFromSQLite()
@@ -46,6 +48,7 @@ class FeedViewModel(
 
     private fun getDataFromSQLite(){
         characterLoading.value = true
+        feedState.value = FeedViewState.FeedLoadingViewState(true)
         viewModelScope.launch {
             val characters = CharacterDatabase(getApplication()).characterDao().getAllCharacters()
             showCharacters(characters)
@@ -54,7 +57,8 @@ class FeedViewModel(
     }
 
     private fun getDataFromAPI() {
-        characterLoading.value = true
+        //characterLoading.value = true
+        feedState.value = FeedViewState.FeedLoadingViewState(true)
 
         charactersService.getRetroInstance().getCharacters()
             .enqueue(object : Callback<List<CharactersItem>> {
@@ -68,8 +72,10 @@ class FeedViewModel(
                 }
 
                 override fun onFailure(call: Call<List<CharactersItem>>, t: Throwable) {
-                    characterLoading.value = false
-                    characterError.value = true
+                    feedState.value = FeedViewState.FeedLoadingViewState(false)
+                    feedState.value = FeedViewState.FeedErrorViewState(true)
+                    //characterLoading.value = false
+                    //characterError.value = true
                     t.printStackTrace()
 
                 }
@@ -79,10 +85,13 @@ class FeedViewModel(
 
     }
 
-    private fun showCharacters(characterList : List<CharactersItem>){
-        character.value = characterList
-        characterError.value = false
-        characterLoading.value = false
+    private fun showCharacters(characterList : List<CharactersItem>) {
+        //character.value = characterList
+        feedState.value = FeedViewState.FeedCharacterList(characterList)
+        feedState.value = FeedViewState.FeedErrorViewState(false)
+        feedState.value = FeedViewState.FeedLoadingViewState(false)
+        //characterError.value = false
+        //characterLoading.value = false
     }
 
     private fun storeInSQLite(list : List<CharactersItem>){
@@ -106,13 +115,18 @@ class FeedViewModel(
         disposable.clear()
     }
 
-    fun updateCharacter(character : CharactersItem){
+    fun updateCharacter(character: CharactersItem) {
         launch {
             val dao = CharacterDatabase(getApplication()).characterDao()
             dao.updateCharacter(character)
         }
     }
 
+    sealed class FeedViewState {
+        data class FeedErrorViewState(val stateError: Boolean) : FeedViewState()
+        data class FeedLoadingViewState(val stateLoading: Boolean) : FeedViewState()
+        data class FeedCharacterList(val characterList: List<CharactersItem>) : FeedViewState()
+    }
 
 
 }

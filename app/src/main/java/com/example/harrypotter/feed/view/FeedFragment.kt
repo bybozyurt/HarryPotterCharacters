@@ -3,15 +3,13 @@ package com.example.harrypotter.feed.view
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.harrypotter.R
-import com.example.harrypotter.feed.viewmodel.FeedViewModel
-import com.example.harrypotter.feed.adapter.CharactersAdapter
 import com.example.harrypotter.databinding.FragmentFeedBinding
+import com.example.harrypotter.feed.adapter.CharactersAdapter
+import com.example.harrypotter.feed.viewmodel.FeedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_feed.*
 
@@ -44,62 +42,17 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        viewModel = ViewModelProviders.of(requireActivity()).get(FeedViewModel::class.java)
+        initViewModel()
+
+        observeFeedState()
 
         viewModel.refreshData()
 
-        characterAdapter = CharactersAdapter(arrayListOf(),updateCharacter = {
-            viewModel.updateCharacter(it)
-        }
-            )
+        recylerAdapter()
 
-        characterListRecylerView.layoutManager = LinearLayoutManager(context)
-        characterListRecylerView.adapter = characterAdapter
+        swipeRefresh()
 
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            characterListRecylerView.visibility = View.GONE
-            characterError.visibility = View.GONE
-            characterLoading.visibility = View.VISIBLE
-            viewModel.refreshFromApi()
-            swipeRefreshLayout.isRefreshing = false
-        }
-
-        observeLiveData()
-
-
-    }
-
-    private fun observeLiveData() {
-        viewModel.character.observe(viewLifecycleOwner, Observer { character ->
-            character?.let {
-                characterListRecylerView.visibility = View.VISIBLE
-                characterAdapter.updateCharacterList(character)
-            }
-        })
-
-        viewModel.characterError.observe(viewLifecycleOwner, Observer { error ->
-            error?.let {
-
-                if (it) {
-                    characterError.visibility = View.VISIBLE
-                } else {
-                    characterError.visibility = View.GONE
-                }
-            }
-        })
-
-        viewModel.characterLoading.observe(viewLifecycleOwner, Observer { loading ->
-            loading?.let {
-                if (it) {
-                    binding.characterLoading.visibility = View.VISIBLE
-                    binding.characterListRecylerView.visibility = View.GONE
-                    binding.characterError.visibility = View.GONE
-                } else {
-                    binding.characterLoading.visibility = View.GONE
-                }
-            }
-        })
     }
 
     override fun onDestroyView() {
@@ -114,10 +67,67 @@ class FeedFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val action = FeedFragmentDirections.actionFeedFragmentToFavoriteFragment()
-        when(item.itemId){
+        when (item.itemId) {
             R.id.favorite_menu -> view?.let { Navigation.findNavController(it).navigate(action) }
         }
         return true
+    }
+
+    fun initViewModel() {
+        viewModel = ViewModelProviders.of(requireActivity()).get(FeedViewModel::class.java)
+    }
+
+    fun observeFeedState() {
+        viewModel.feedState.observe(viewLifecycleOwner) { feedViewState ->
+            when (feedViewState) {
+                is FeedViewModel.FeedViewState.FeedLoadingViewState -> {
+                    feedViewState.stateLoading.let {
+                        if (it) {
+                            binding.characterLoading.visibility = View.VISIBLE
+                            binding.characterListRecylerView.visibility = View.GONE
+                            binding.characterError.visibility = View.GONE
+                        } else {
+                            binding.characterLoading.visibility = View.GONE
+                        }
+                    }
+                }
+                is FeedViewModel.FeedViewState.FeedErrorViewState -> {
+                    feedViewState.stateError.let {
+                        if (it) {
+                            characterError.visibility = View.VISIBLE
+                        } else {
+                            characterError.visibility = View.GONE
+                        }
+                    }
+                }
+                is FeedViewModel.FeedViewState.FeedCharacterList -> {
+                    feedViewState.characterList.let { character ->
+                        characterListRecylerView.visibility = View.VISIBLE
+                        characterAdapter.updateCharacterList(character)
+                    }
+                }
+            }
+        }
+    }
+
+    fun swipeRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            characterListRecylerView.visibility = View.GONE
+            characterError.visibility = View.GONE
+            characterLoading.visibility = View.VISIBLE
+            viewModel.refreshFromApi()
+            swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    fun recylerAdapter() {
+        characterAdapter = CharactersAdapter(arrayListOf(), updateCharacter = {
+            viewModel.updateCharacter(it)
+        }
+        )
+
+        characterListRecylerView.layoutManager = LinearLayoutManager(context)
+        characterListRecylerView.adapter = characterAdapter
     }
 
 

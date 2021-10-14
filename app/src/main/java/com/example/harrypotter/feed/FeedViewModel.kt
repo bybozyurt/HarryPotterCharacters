@@ -9,6 +9,7 @@ import com.example.harrypotter.data.local.CharacterDatabase
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.network.CharactersService
 import com.example.harrypotter.util.CustomSharedPreferences
+import com.example.harrypotter.util.FeedViewState
 import com.example.harrypotter.util.IUpdateCharacter
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
@@ -114,11 +115,11 @@ class FeedViewModel(
         }
     }
 
-    sealed class FeedViewState {
-        data class FeedErrorViewState(val stateError: Boolean) : FeedViewState()
-        data class FeedLoadingViewState(val stateLoading: Boolean) : FeedViewState()
-        data class FeedCharacterList(val characterList: List<CharactersItem>) : FeedViewState()
-    }
+//    sealed class FeedViewState {
+//        data class FeedErrorViewState(val stateError: Boolean) : FeedViewState()
+//        data class FeedLoadingViewState(val stateLoading: Boolean) : FeedViewState()
+//        data class FeedCharacterList(val characterList: List<CharactersItem>) : FeedViewState()
+//    }
 
 
 }

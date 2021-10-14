@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.harrypotter.R
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentFeedBinding
+import com.example.harrypotter.util.FeedViewState
 import com.example.harrypotter.util.IUpdateCharacter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_feed.*
@@ -73,7 +74,7 @@ class FeedFragment : Fragment() {
     fun observeFeedState() {
         viewModel.feedState.observe(viewLifecycleOwner) { feedViewState ->
             when (feedViewState) {
-                is FeedViewModel.FeedViewState.FeedLoadingViewState -> {
+                is FeedViewState.FeedLoadingViewState -> {
                     feedViewState.stateLoading.let {
                         if (it) {
                             binding.characterLoading.visibility = View.VISIBLE
@@ -84,7 +85,7 @@ class FeedFragment : Fragment() {
                         }
                     }
                 }
-                is FeedViewModel.FeedViewState.FeedErrorViewState -> {
+                is FeedViewState.FeedErrorViewState -> {
                     feedViewState.stateError.let {
                         if (it) {
                             characterError.visibility = View.VISIBLE
@@ -93,7 +94,7 @@ class FeedFragment : Fragment() {
                         }
                     }
                 }
-                is FeedViewModel.FeedViewState.FeedCharacterList -> {
+                is FeedViewState.FeedCharacterList -> {
                     feedViewState.characterList.let { character ->
                         characterListRecylerView.visibility = View.VISIBLE
                         characterAdapter.updateCharacterList(character)

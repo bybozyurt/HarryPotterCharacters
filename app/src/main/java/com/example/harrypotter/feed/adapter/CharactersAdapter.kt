@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.harrypotter.R
 import com.example.harrypotter.databinding.ItemRowBinding
 import com.example.harrypotter.feed.view.FeedFragmentDirections
-import com.example.harrypotter.model.CharactersItem
+import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 

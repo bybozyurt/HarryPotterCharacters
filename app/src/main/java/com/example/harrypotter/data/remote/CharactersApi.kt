@@ -1,6 +1,6 @@
-package com.example.harrypotter.service
+package com.example.harrypotter.data.remote
 
-import com.example.harrypotter.model.CharactersItem
+import com.example.harrypotter.data.model.CharactersItem
 import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.GET

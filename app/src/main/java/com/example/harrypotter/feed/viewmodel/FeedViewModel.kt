@@ -5,9 +5,9 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.harrypotter.ViewModel.BaseViewModel
-import com.example.harrypotter.model.CharactersItem
-import com.example.harrypotter.service.CharacterDatabase
-import com.example.harrypotter.service.CharactersService
+import com.example.harrypotter.data.model.CharactersItem
+import com.example.harrypotter.data.local.CharacterDatabase
+import com.example.harrypotter.di.CharactersService
 import com.example.harrypotter.util.CustomSharedPreferences
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
@@ -15,11 +15,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FeedViewModel(application: Application) : BaseViewModel(application){
+class FeedViewModel(
+    application: Application,
+) : BaseViewModel(application) {
 
     private val charactersService = CharactersService()
     private val disposable = CompositeDisposable()
     private var customPreferences = CustomSharedPreferences(getApplication())
+
     //nano second
     private var refreshTime = 10 * 60 * 1000 * 1000 * 1000L
 
@@ -50,17 +53,18 @@ class FeedViewModel(application: Application) : BaseViewModel(application){
         }
     }
 
-    private fun getDataFromAPI(){
+    private fun getDataFromAPI() {
         characterLoading.value = true
 
-        charactersService.getData()
-            .enqueue(object : Callback<List<CharactersItem>>{
+        charactersService.getRetroInstance().getCharacters()
+            .enqueue(object : Callback<List<CharactersItem>> {
                 override fun onResponse(
                     call: Call<List<CharactersItem>>,
                     response: Response<List<CharactersItem>>
                 ) {
                     response.body()?.let { storeInSQLite(it) }
-                    Toast.makeText(getApplication(),"Characters from API",Toast.LENGTH_LONG).show()
+                    Toast.makeText(getApplication(), "Characters from API", Toast.LENGTH_LONG)
+                        .show()
                 }
 
                 override fun onFailure(call: Call<List<CharactersItem>>, t: Throwable) {
@@ -71,8 +75,9 @@ class FeedViewModel(application: Application) : BaseViewModel(application){
                 }
 
             })
-        
-   }
+
+
+    }
 
     private fun showCharacters(characterList : List<CharactersItem>){
         character.value = characterList

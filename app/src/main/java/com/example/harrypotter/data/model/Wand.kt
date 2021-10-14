@@ -1,4 +1,4 @@
-package com.example.harrypotter.model
+package com.example.harrypotter.data.model
 
 
 import com.google.gson.annotations.SerializedName

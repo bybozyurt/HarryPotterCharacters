@@ -6,14 +6,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.harrypotter.R
 import com.example.harrypotter.feed.viewmodel.FeedViewModel
 import com.example.harrypotter.feed.adapter.CharactersAdapter
 import com.example.harrypotter.databinding.FragmentFeedBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_feed.*
 
-
+@AndroidEntryPoint
 class FeedFragment : Fragment() {
 
     private var _binding : FragmentFeedBinding? = null
@@ -42,7 +44,7 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        viewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
+        viewModel = ViewModelProviders.of(requireActivity()).get(FeedViewModel::class.java)
 
         viewModel.refreshData()
 

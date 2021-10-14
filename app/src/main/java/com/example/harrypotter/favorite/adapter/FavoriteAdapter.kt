@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.harrypotter.databinding.ItemFavoriteBinding
-import com.example.harrypotter.model.CharactersItem
+import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 

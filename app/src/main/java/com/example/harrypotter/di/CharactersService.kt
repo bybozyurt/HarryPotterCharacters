@@ -1,11 +1,11 @@
-package com.example.harrypotter.service
+package com.example.harrypotter.di
 
-import com.example.harrypotter.model.CharactersItem
+import com.example.harrypotter.data.remote.CharactersApi
+import com.example.harrypotter.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -14,14 +14,12 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class CharactersService {
 
-    private val BASE_URL = "https://hp-api.herokuapp.com/"
-
-    @Singleton
-    @Provides
-    fun getData(): Call<List<CharactersItem>> {
-        return getRetroInstance().getCharacters()
-
-    }
+//    @Singleton
+//    @Provides
+//    fun getData(): Call<List<CharactersItem>> {
+//        return getRetroInstance().getCharacters()
+//
+//    }
 
 
     @Singleton

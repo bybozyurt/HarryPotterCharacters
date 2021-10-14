@@ -3,8 +3,8 @@ package com.example.harrypotter.detail.viewmodel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.example.harrypotter.ViewModel.BaseViewModel
-import com.example.harrypotter.model.CharactersItem
-import com.example.harrypotter.service.CharacterDatabase
+import com.example.harrypotter.data.model.CharactersItem
+import com.example.harrypotter.data.local.CharacterDatabase
 import kotlinx.coroutines.launch
 
 class DetailViewModel(application: Application) : BaseViewModel(application) {

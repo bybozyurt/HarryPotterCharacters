@@ -55,11 +55,16 @@ class FavoriteAdapter(
                         binding.favoriteLike.setImageResource(R.drawable.ic_favorite)
                         this.flag = true
                         updateCharacter(this)
+                        removeCharacter(this)
+
+
 
                     } else {
                         binding.favoriteLike.setImageResource(R.drawable.ic_favorite_border)
                         this.flag = false
                         updateCharacter(this)
+                        removeCharacter(this)
+
 
                     }
                 }
@@ -77,5 +82,10 @@ class FavoriteAdapter(
         favoriteList.addAll(newCharacterList)
         notifyDataSetChanged()
 
+    }
+
+    fun removeCharacter(position: CharactersItem){
+        favoriteList.remove(position)
+        notifyDataSetChanged()
     }
 }

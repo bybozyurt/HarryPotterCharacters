@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HarryPotter">
 
-        <activity android:name=".HarryPotter">
+        <activity
+            android:name=".HarryPotter"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

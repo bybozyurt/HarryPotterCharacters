@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".favorite.FavoriteFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/favorite_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyler_view_favorite" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyler_view_favorite"
         android:layout_width="0dp"

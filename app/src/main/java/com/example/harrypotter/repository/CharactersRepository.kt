@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @ActivityScoped
 class CharactersRepository @Inject constructor(
-    private val api: CharactersApi,
+    private val charactersApi: CharactersApi,
     private val charactersDao: CharactersDao
 ){
 

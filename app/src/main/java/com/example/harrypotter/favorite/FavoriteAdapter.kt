@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.harrypotter.R
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.ItemFavoriteBinding
-import com.example.harrypotter.feed.FeedFragmentDirections
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 
@@ -27,8 +26,8 @@ class FavoriteAdapter(
     }
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        with(holder){
-            with(favoriteList[position]){
+        with(holder) {
+            with(favoriteList[position]) {
                 binding.characterNameFavorite.text = this.name
                 binding.imageCharacterFavorite.downloadFromApi(
                     this.image,
@@ -58,7 +57,6 @@ class FavoriteAdapter(
                         removeCharacter(this)
 
 
-
                     } else {
                         binding.favoriteLike.setImageResource(R.drawable.ic_favorite_border)
                         this.flag = false
@@ -77,14 +75,14 @@ class FavoriteAdapter(
         return favoriteList.size
     }
 
-    fun updateCharacterList(newCharacterList : List<CharactersItem>){
+    fun updateCharacterList(newCharacterList: List<CharactersItem>) {
         favoriteList.clear()
         favoriteList.addAll(newCharacterList)
         notifyDataSetChanged()
 
     }
 
-    fun removeCharacter(position: CharactersItem){
+    fun removeCharacter(position: CharactersItem) {
         favoriteList.remove(position)
         notifyDataSetChanged()
     }

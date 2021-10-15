@@ -9,18 +9,18 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.harrypotter.R
+import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentFavoriteBinding
+import com.example.harrypotter.util.IUpdateCharacter
 import kotlinx.android.synthetic.main.fragment_favorite.*
 
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : Fragment(), IUpdateCharacter {
 
     private var _binding : FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: FavoriteViewModel
-    private val favoriteAdapter = FavoriteAdapter(arrayListOf(), updateCharacter = {
-        viewModel.updateCharacter(it)
-    })
+    private val favoriteAdapter = FavoriteAdapter(arrayListOf(),this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
+        //setHasOptionsMenu(true)
         initViewModel()
         recylerAdapter()
         observeLiveData()
@@ -67,25 +67,26 @@ class FavoriteFragment : Fragment() {
         recyler_view_favorite.adapter = favoriteAdapter
     }
 
-    fun ActionBar(){
-
+    override fun updateCharacter(character: CharactersItem) {
+        viewModel.updateCharacter(character)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.favorite_menu,menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val action = FavoriteFragmentDirections.actionFavoriteFragmentToFeedFragment()
-        when(item.itemId){
-            R.id.getBack -> view?.let { Navigation.findNavController(it).navigate(action) }
-
-            else ->{super.onOptionsItemSelected(item)}
-        }
-
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.favorite_menu,menu)
+//        super.onCreateOptionsMenu(menu, inflater)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        val action = FavoriteFragmentDirections.actionFavoriteFragmentToFeedFragment()
+//        when(item.itemId){
+//            R.id.getBack -> view?.let { Navigation.findNavController(it).navigate(action) }
+//
+//            else ->{super.onOptionsItemSelected(item)}
+//        }
+//
+//        return true
+//    }
 
 
 }

@@ -12,7 +12,7 @@ import com.example.harrypotter.util.placeHolderProgressBar
 
 class FavoriteAdapter(
     val favoriteList: ArrayList<CharactersItem>,
-    private val updateCharacter: (CharactersItem) -> Unit
+    val favoriteFragment: FavoriteFragment
 ) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
 
@@ -53,16 +53,15 @@ class FavoriteAdapter(
                     if (!this.flag) {
                         binding.favoriteLike.setImageResource(R.drawable.ic_favorite)
                         this.flag = true
-                        updateCharacter(this)
+                        favoriteFragment.updateCharacter(this)
                         removeCharacter(this)
 
 
                     } else {
                         binding.favoriteLike.setImageResource(R.drawable.ic_favorite_border)
                         this.flag = false
-                        updateCharacter(this)
+                        favoriteFragment.updateCharacter(this)
                         removeCharacter(this)
-
 
                     }
                 }

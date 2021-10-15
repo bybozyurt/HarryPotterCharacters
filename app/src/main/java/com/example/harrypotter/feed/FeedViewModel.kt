@@ -8,18 +8,23 @@ import com.example.harrypotter.ViewModel.BaseViewModel
 import com.example.harrypotter.data.local.CharacterDatabase
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.network.CharactersService
+import com.example.harrypotter.repository.CharactersRepository
 import com.example.harrypotter.util.CustomSharedPreferences
 import com.example.harrypotter.util.FeedViewState
 import com.example.harrypotter.util.IUpdateCharacter
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ViewModelScoped
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
+
 
 class FeedViewModel(
     application: Application,
-) : BaseViewModel(application),IUpdateCharacter {
+) : BaseViewModel(application) {
 
     private val charactersService = CharactersService()
     private val disposable = CompositeDisposable()
@@ -61,7 +66,8 @@ class FeedViewModel(
                     call: Call<List<CharactersItem>>,
                     response: Response<List<CharactersItem>>
                 ) {
-                    response.body()?.let { storeInSQLite(it) }
+                    response.body()?.let { storeInSQLite(it)
+                    }
                     Toast.makeText(getApplication(), "Characters from API", Toast.LENGTH_LONG)
                         .show()
                 }
@@ -101,6 +107,14 @@ class FeedViewModel(
         customPreferences.saveTime(System.nanoTime())
     }
 
+    fun updateCharacter(character: CharactersItem) {
+        viewModelScope.launch {
+            val dao = CharacterDatabase(getApplication()).characterDao()
+            dao.updateCharacter(character)
+        }
+    }
+
+
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
@@ -108,18 +122,8 @@ class FeedViewModel(
 
 
 
-    override fun updateCharacter(character: CharactersItem) {
-        viewModelScope.launch {
-            val dao = CharacterDatabase(getApplication()).characterDao()
-            dao.updateCharacter(character)
-        }
-    }
 
-//    sealed class FeedViewState {
-//        data class FeedErrorViewState(val stateError: Boolean) : FeedViewState()
-//        data class FeedLoadingViewState(val stateLoading: Boolean) : FeedViewState()
-//        data class FeedCharacterList(val characterList: List<CharactersItem>) : FeedViewState()
-//    }
+
 
 
 }

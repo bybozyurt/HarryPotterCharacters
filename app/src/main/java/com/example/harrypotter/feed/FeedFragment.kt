@@ -15,8 +15,7 @@ import com.example.harrypotter.util.IUpdateCharacter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_feed.*
 
-@AndroidEntryPoint
-class FeedFragment : Fragment() {
+class FeedFragment : Fragment(), IUpdateCharacter {
 
     private var _binding : FragmentFeedBinding? = null
     private val binding get() = _binding!!
@@ -116,16 +115,15 @@ class FeedFragment : Fragment() {
     }
 
     fun recylerAdapter() {
-        characterAdapter = CharactersAdapter(arrayListOf(), updateCharacter = {
-            viewModel.updateCharacter(it)
-        }
-
-        )
+        characterAdapter = CharactersAdapter(arrayListOf(),this)
 
         characterListRecylerView.layoutManager = LinearLayoutManager(context)
         characterListRecylerView.adapter = characterAdapter
     }
 
+    override fun updateCharacter(character: CharactersItem) {
+        viewModel.updateCharacter(character)
+    }
 
 
 

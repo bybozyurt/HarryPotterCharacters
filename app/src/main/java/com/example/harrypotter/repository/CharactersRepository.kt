@@ -20,13 +20,13 @@ import javax.inject.Inject
 class CharactersRepository @Inject constructor(
     private val charactersApi: CharactersApi,
     private val charactersDao: CharactersDao
-) : Coroutine() {
+) {
 
 
-    var feedState: MutableLiveData<FeedViewState> = MutableLiveData<FeedViewState>()
+    //var feedState: MutableLiveData<FeedViewState> = MutableLiveData<FeedViewState>()
 
     suspend fun insertAll(vararg character: CharactersItem) : List<Long> {
-        return charactersDao.insertAll()
+        return charactersDao.insertAll(*character)
     }
 
     suspend fun getAllCharacters(): List<CharactersItem> {
@@ -49,45 +49,45 @@ class CharactersRepository @Inject constructor(
         return charactersDao.getFavoriteCharacters()
     }
 
-    fun makeApiCall(){
-        val call : Call<List<CharactersItem>> = charactersApi.getCharacters()
-        call?.enqueue(object : Callback<List<CharactersItem>>{
-            override fun onResponse(
-                call: Call<List<CharactersItem>>,
-                response: Response<List<CharactersItem>>
-            ) {
-                response.body()?.let {
-                    storeInSqlite(it)
-                }
-            }
-
-            override fun onFailure(call: Call<List<CharactersItem>>, t: Throwable) {
-                feedState.value = FeedViewState.FeedLoadingViewState(false)
-                feedState.value = FeedViewState.FeedErrorViewState(true)
-            }
-        })
-    }
-
-    fun storeInSqlite(list: List<CharactersItem>){
-        launch {
-            deleteAllCharacters()
-            val listLong = insertAll(*list.toTypedArray())
-            var i = 0
-            while (i < list.size){
-                list[i].uuid = listLong[i].toInt()
-                i++
-            }
-            showCharacters(list)
-        }
-
-    }
-
-   fun showCharacters(characterList : List<CharactersItem>) {
-        feedState.value = FeedViewState.FeedCharacterList(characterList)
-        feedState.value = FeedViewState.FeedErrorViewState(false)
-        feedState.value = FeedViewState.FeedLoadingViewState(false)
-
-   }
+//    fun makeApiCall(){
+//        val call : Call<List<CharactersItem>> = charactersApi.getCharacters()
+//        call?.enqueue(object : Callback<List<CharactersItem>>{
+//            override fun onResponse(
+//                call: Call<List<CharactersItem>>,
+//                response: Response<List<CharactersItem>>
+//            ) {
+//                response.body()?.let {
+//                    storeInSqlite(it)
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<CharactersItem>>, t: Throwable) {
+//                feedState.value = FeedViewState.FeedLoadingViewState(false)
+//                feedState.value = FeedViewState.FeedErrorViewState(true)
+//            }
+//        })
+//    }
+//
+//    fun storeInSqlite(list: List<CharactersItem>){
+//        launch {
+//            deleteAllCharacters()
+//            val listLong = insertAll(*list.toTypedArray())
+//            var i = 0
+//            while (i < list.size){
+//                list[i].uuid = listLong[i].toInt()
+//                i++
+//            }
+//            showCharacters(list)
+//        }
+//
+//    }
+//
+//   fun showCharacters(characterList : List<CharactersItem>) {
+//        feedState.value = FeedViewState.FeedCharacterList(characterList)
+//        feedState.value = FeedViewState.FeedErrorViewState(false)
+//        feedState.value = FeedViewState.FeedLoadingViewState(false)
+//
+//   }
 
 
 }

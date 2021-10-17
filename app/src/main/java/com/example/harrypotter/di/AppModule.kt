@@ -1,6 +1,7 @@
 package com.example.harrypotter.di
 
 import android.content.Context
+import androidx.room.Room
 import com.example.harrypotter.data.local.CharacterDatabase
 import com.example.harrypotter.data.local.CharactersDao
 import com.example.harrypotter.data.remote.CharactersApi
@@ -8,6 +9,7 @@ import com.example.harrypotter.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityScoped
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
@@ -20,8 +22,12 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun getAppDatabase(context: Context) : CharacterDatabase{
-        return CharacterDatabase.invoke(context)
+    fun getAppDatabase(@ApplicationContext context: Context) : CharacterDatabase{
+        return Room.databaseBuilder(
+            context,
+            CharacterDatabase::class.java,
+            "characterdatabase"
+        ).build()
     }
 
     @Provides

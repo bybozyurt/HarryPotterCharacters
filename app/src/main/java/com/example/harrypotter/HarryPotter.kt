@@ -9,7 +9,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.harrypotter.R
 import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HarryPotter : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

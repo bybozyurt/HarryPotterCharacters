@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -12,14 +13,15 @@ import com.example.harrypotter.R
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentFavoriteBinding
 import com.example.harrypotter.util.IUpdateCharacter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favorite.*
 
-
+@AndroidEntryPoint
 class FavoriteFragment : Fragment(), IUpdateCharacter {
 
     private var _binding : FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: FavoriteViewModel
+    private val viewModel: FavoriteViewModel by viewModels()
     private val favoriteAdapter = FavoriteAdapter(arrayListOf(),this)
 
 
@@ -58,7 +60,7 @@ class FavoriteFragment : Fragment(), IUpdateCharacter {
     }
 
     fun initViewModel(){
-        viewModel = ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
+        //viewModel = ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
         viewModel.getFavoriteCharactersFromSQLite()
     }
 

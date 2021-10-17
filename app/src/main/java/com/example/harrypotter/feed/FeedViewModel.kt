@@ -21,9 +21,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-
-class FeedViewModel(
+@HiltViewModel
+class FeedViewModel @Inject constructor(
     application: Application,
+    private val repository: CharactersRepository,
 ) : BaseViewModel(application) {
 
     private val charactersService = CharactersService()
@@ -51,7 +52,8 @@ class FeedViewModel(
     private fun getDataFromSQLite(){
         feedState.value = FeedViewState.FeedLoadingViewState(true)
         viewModelScope.launch {
-            val characters = CharacterDatabase(getApplication()).characterDao().getAllCharacters()
+//            val characters = CharacterDatabase(getApplication()).characterDao().getAllCharacters()
+            val characters = repository.getAllCharacters()
             showCharacters(characters)
             Toast.makeText(getApplication(),"Characters from SQLite",Toast.LENGTH_LONG).show()
         }
@@ -93,9 +95,10 @@ class FeedViewModel(
 
     private fun storeInSQLite(list : List<CharactersItem>){
         viewModelScope.launch {
-            val dao = CharacterDatabase(getApplication()).characterDao()
-            dao.deleteAllCharacters()
-            val listLong = dao.insertAll(*list.toTypedArray())
+//            val dao = CharacterDatabase(getApplication()).characterDao()
+//            dao.deleteAllCharacters()
+            repository.deleteAllCharacters()
+            val listLong = repository.insertAll(*list.toTypedArray())
             var i = 0
             while (i < list.size){
                 list[i].uuid = listLong[i].toInt()
@@ -109,8 +112,9 @@ class FeedViewModel(
 
     fun updateCharacter(character: CharactersItem) {
         viewModelScope.launch {
-            val dao = CharacterDatabase(getApplication()).characterDao()
-            dao.updateCharacter(character)
+//            val dao = CharacterDatabase(getApplication()).characterDao()
+//            dao.updateCharacter(character)
+            repository.updateCharacter(character)
         }
     }
 

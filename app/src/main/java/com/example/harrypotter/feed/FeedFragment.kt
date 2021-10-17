@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,12 +15,12 @@ import com.example.harrypotter.util.FeedViewState
 import com.example.harrypotter.util.IUpdateCharacter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_feed.*
-
+@AndroidEntryPoint
 class FeedFragment : Fragment(), IUpdateCharacter {
 
     private var _binding : FragmentFeedBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: FeedViewModel
+    private val viewModel: FeedViewModel by viewModels()
     private lateinit var characterAdapter : CharactersAdapter
 
 
@@ -67,7 +68,7 @@ class FeedFragment : Fragment(), IUpdateCharacter {
     }
 
     fun initViewModel() {
-        viewModel = ViewModelProviders.of(requireActivity()).get(FeedViewModel::class.java)
+        //viewModel = ViewModelProviders.of(requireActivity()).get(FeedViewModel::class.java)
         viewModel.refreshData()
     }
 

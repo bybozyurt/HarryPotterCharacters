@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -12,11 +13,12 @@ import com.example.harrypotter.R
 import com.example.harrypotter.databinding.FragmentDetailBinding
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class DetailFragment() : Fragment() {
 
-    private lateinit var viewModel : DetailViewModel
+    private val viewModel : DetailViewModel by viewModels()
     private var _binding : FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private var characterUuid = 0
@@ -84,7 +86,7 @@ class DetailFragment() : Fragment() {
     }
 
     fun initViewModel(){
-        viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
+        //viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
         viewModel.getDataFromRoom(characterUuid)
     }
 

@@ -1,4 +1,4 @@
-package com.example.harrypotter.favorite
+package com.example.harrypotter.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package com.example.harrypotter.feed
+package com.example.harrypotter.ui.feed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

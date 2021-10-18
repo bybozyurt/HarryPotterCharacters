@@ -1,29 +1,30 @@
-package com.example.harrypotter.detail
+package com.example.harrypotter.ui.favorite
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.harrypotter.ViewModel.BaseViewModel
 import com.example.harrypotter.data.model.CharactersItem
-import com.example.harrypotter.data.local.CharacterDatabase
 import com.example.harrypotter.repository.CharactersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(application: Application, private val repository: CharactersRepository) : BaseViewModel(application) {
+class FavoriteViewModel @Inject constructor(application: Application, private val repository: CharactersRepository) : BaseViewModel(application) {
 
+    val characters = MutableLiveData<List<CharactersItem>>()
 
-    val characterLiveData = MutableLiveData<CharactersItem>()
-
-    fun getDataFromRoom(uuid : Int){
+    fun getFavoriteCharactersFromSQLite(){
         viewModelScope.launch {
-//            val dao = CharacterDatabase(getApplication()).characterDao()
-//            val character = dao.getCharacter(uuid)
-            val character = repository.getCharacter(uuid)
-            characterLiveData.value = character
+            //val favoriteCharacters = CharacterDatabase(getApplication()).characterDao().getFavoriteCharacters()
+            val favoriteCharacters = repository.getFavoriteCharacters()
+            showCharacters(favoriteCharacters)
         }
+    }
+
+    private fun showCharacters(favoritelist : List<CharactersItem>){
+        characters.value = favoritelist
     }
 
     fun updateCharacter(character : CharactersItem){
@@ -31,9 +32,7 @@ class DetailViewModel @Inject constructor(application: Application, private val 
 //            val dao = CharacterDatabase(getApplication()).characterDao()
 //            dao.updateCharacter(character)
             repository.updateCharacter(character)
-
         }
-
     }
 
 

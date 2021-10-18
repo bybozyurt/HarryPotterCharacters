@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.example.harrypotter.feed.FeedFragment"
+        android:name="com.example.harrypotter.ui.feed.FeedFragment"
         android:label="Feed"
         tools:layout="@layout/fragment_feed" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.harrypotter.detail.DetailFragment"
+        android:name="com.example.harrypotter.ui.detail.DetailFragment"
         android:label="Detail"
         tools:layout="@layout/fragment_detail" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.harrypotter.favorite.FavoriteFragment"
+        android:name="com.example.harrypotter.ui.favorite.FavoriteFragment"
         android:label="Favorite"
         tools:layout="@layout/fragment_favorite" >
         <action

@@ -1,19 +1,16 @@
-package com.example.harrypotter.feed
+package com.example.harrypotter.ui.feed
 
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.harrypotter.ViewModel.BaseViewModel
-import com.example.harrypotter.data.local.CharacterDatabase
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.network.CharactersService
 import com.example.harrypotter.repository.CharactersRepository
 import com.example.harrypotter.util.CustomSharedPreferences
 import com.example.harrypotter.util.FeedViewState
-import com.example.harrypotter.util.IUpdateCharacter
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -52,7 +49,6 @@ class FeedViewModel @Inject constructor(
     private fun getDataFromSQLite(){
         feedState.value = FeedViewState.FeedLoadingViewState(true)
         viewModelScope.launch {
-//            val characters = CharacterDatabase(getApplication()).characterDao().getAllCharacters()
             val characters = repository.getAllCharacters()
             showCharacters(characters)
             Toast.makeText(getApplication(),"Characters from SQLite",Toast.LENGTH_LONG).show()
@@ -112,8 +108,6 @@ class FeedViewModel @Inject constructor(
 
     fun updateCharacter(character: CharactersItem) {
         viewModelScope.launch {
-//            val dao = CharacterDatabase(getApplication()).characterDao()
-//            dao.updateCharacter(character)
             repository.updateCharacter(character)
         }
     }

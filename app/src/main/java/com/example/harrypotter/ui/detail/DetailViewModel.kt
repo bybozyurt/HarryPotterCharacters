@@ -9,6 +9,8 @@ import com.example.harrypotter.repository.CharactersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.harrypotter.util.toast
+
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(application: Application, private val repository: CharactersRepository) : BaseViewModel(application) {
@@ -19,6 +21,8 @@ class DetailViewModel @Inject constructor(application: Application, private val 
         viewModelScope.launch {
             val character = repository.getCharacter(uuid)
             characterLiveData.value = character
+            
+
         }
     }
 

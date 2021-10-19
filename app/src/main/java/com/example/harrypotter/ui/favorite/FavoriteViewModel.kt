@@ -17,7 +17,6 @@ class FavoriteViewModel @Inject constructor(application: Application, private va
 
     fun getFavoriteCharactersFromSQLite(){
         viewModelScope.launch {
-            //val favoriteCharacters = CharacterDatabase(getApplication()).characterDao().getFavoriteCharacters()
             val favoriteCharacters = repository.getFavoriteCharacters()
             showCharacters(favoriteCharacters)
         }
@@ -29,8 +28,6 @@ class FavoriteViewModel @Inject constructor(application: Application, private va
 
     fun updateCharacter(character : CharactersItem){
         viewModelScope.launch {
-//            val dao = CharacterDatabase(getApplication()).characterDao()
-//            dao.updateCharacter(character)
             repository.updateCharacter(character)
         }
     }

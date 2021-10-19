@@ -1,8 +1,8 @@
-package com.example.harrypotter.util
+package com.example.harrypotter.adapter
 
 import com.example.harrypotter.data.model.CharactersItem
 
-interface IUpdateCharacter {
+interface AdapterInterface {
     
     fun updateCharacter(character : CharactersItem)
 

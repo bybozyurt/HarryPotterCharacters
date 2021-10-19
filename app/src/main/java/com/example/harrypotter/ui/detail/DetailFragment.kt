@@ -85,7 +85,6 @@ class DetailFragment() : Fragment() {
     }
 
     fun initViewModel(){
-        //viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
         viewModel.getDataFromRoom(characterUuid)
     }
 

@@ -1,4 +1,4 @@
-package com.example.harrypotter.ui.favorite
+package com.example.harrypotter.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.harrypotter.R
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.ItemFavoriteBinding
+import com.example.harrypotter.ui.favorite.FavoriteFragment
+import com.example.harrypotter.ui.favorite.FavoriteFragmentDirections
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 

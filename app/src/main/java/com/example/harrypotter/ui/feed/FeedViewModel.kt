@@ -9,7 +9,6 @@ import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.network.CharactersService
 import com.example.harrypotter.repository.CharactersRepository
 import com.example.harrypotter.util.CustomSharedPreferences
-import com.example.harrypotter.util.FeedViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
@@ -51,7 +50,7 @@ class FeedViewModel @Inject constructor(
         viewModelScope.launch {
             val characters = repository.getAllCharacters()
             showCharacters(characters)
-            Toast.makeText(getApplication(),"Characters from SQLite",Toast.LENGTH_LONG).show()
+            feedState.value = FeedViewState.ShowSqliteMessage
         }
     }
 
@@ -66,8 +65,7 @@ class FeedViewModel @Inject constructor(
                 ) {
                     response.body()?.let { storeInSQLite(it)
                     }
-                    Toast.makeText(getApplication(), "Characters from API", Toast.LENGTH_LONG)
-                        .show()
+                    feedState.value = FeedViewState.ShowApiMessage
                 }
 
                 override fun onFailure(call: Call<List<CharactersItem>>, t: Throwable) {
@@ -91,8 +89,6 @@ class FeedViewModel @Inject constructor(
 
     private fun storeInSQLite(list : List<CharactersItem>){
         viewModelScope.launch {
-//            val dao = CharacterDatabase(getApplication()).characterDao()
-//            dao.deleteAllCharacters()
             repository.deleteAllCharacters()
             val listLong = repository.insertAll(*list.toTypedArray())
             var i = 0

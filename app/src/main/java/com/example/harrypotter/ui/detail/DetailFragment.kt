@@ -22,11 +22,6 @@ class DetailFragment() : Fragment() {
     private val binding get() = _binding!!
     private var characterUuid = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -12,7 +12,6 @@ import com.example.harrypotter.ui.feed.FeedFragmentDirections
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 
-//interface ile yapılacak parametreler
 class CharactersAdapter(
     val characterList: ArrayList<CharactersItem>,
     val feedFragment: FeedFragment

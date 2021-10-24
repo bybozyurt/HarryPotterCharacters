@@ -10,12 +10,8 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class CharactersRepository @Inject constructor(
-    private val charactersApi: CharactersApi,
     private val charactersDao: CharactersDao
 ) {
-
-
-    //var feedState: MutableLiveData<FeedViewState> = MutableLiveData<FeedViewState>()
 
     suspend fun insertAll(vararg character: CharactersItem) : List<Long> {
         return charactersDao.insertAll(*character)

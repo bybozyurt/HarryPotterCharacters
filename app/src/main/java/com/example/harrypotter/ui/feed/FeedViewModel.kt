@@ -1,11 +1,11 @@
 package com.example.harrypotter.ui.feed
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.harrypotter.ViewModel.BaseViewModel
+import com.example.harrypotter.base.ViewModel.BaseViewModel
 import com.example.harrypotter.data.model.CharactersItem
+import com.example.harrypotter.data.remote.CharactersApi
 import com.example.harrypotter.network.CharactersService
 import com.example.harrypotter.repository.CharactersRepository
 import com.example.harrypotter.util.CustomSharedPreferences
@@ -21,9 +21,9 @@ import javax.inject.Inject
 class FeedViewModel @Inject constructor(
     application: Application,
     private val repository: CharactersRepository,
+    private val charactersApi: CharactersApi
 ) : BaseViewModel(application) {
 
-    private val charactersService = CharactersService()
     private val disposable = CompositeDisposable()
     private var customPreferences = CustomSharedPreferences(getApplication())
 
@@ -57,7 +57,7 @@ class FeedViewModel @Inject constructor(
     private fun getDataFromAPI() {
         feedState.value = FeedViewState.FeedLoadingViewState(true)
 
-        charactersService.getRetroInstance().getCharacters()
+        charactersApi.getCharacters()
             .enqueue(object : Callback<List<CharactersItem>> {
                 override fun onResponse(
                     call: Call<List<CharactersItem>>,

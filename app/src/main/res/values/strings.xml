@@ -2,4 +2,9 @@
     <string name="app_name">HarryPotter</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">name</string>
+    <string name="actor">actor</string>
+    <string name="house">house</string>
+    <string name="patronus">patronus</string>
+    <string name="error_try_again">Error! Try Again</string>
 </resources>

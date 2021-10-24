@@ -3,7 +3,7 @@ package com.example.harrypotter.ui.favorite
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.harrypotter.ViewModel.BaseViewModel
+import com.example.harrypotter.base.ViewModel.BaseViewModel
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.repository.CharactersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

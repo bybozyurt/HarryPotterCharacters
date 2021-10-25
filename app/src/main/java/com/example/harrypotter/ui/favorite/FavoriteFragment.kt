@@ -1,50 +1,25 @@
 package com.example.harrypotter.ui.favorite
 
-import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.harrypotter.R
 import com.example.harrypotter.adapter.FavoriteAdapter
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentFavoriteBinding
 import com.example.harrypotter.adapter.AdapterInterface
+import com.example.harrypotter.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favorite.*
 
 @AndroidEntryPoint
-class FavoriteFragment : Fragment(), AdapterInterface {
+class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), AdapterInterface {
 
-    private var _binding : FragmentFavoriteBinding? = null
-    private val binding get() = _binding!!
+
     private val viewModel: FavoriteViewModel by viewModels()
     private val favoriteAdapter = FavoriteAdapter(arrayListOf(),this)
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFavoriteBinding.inflate(inflater, container,false)
-        val view = binding.root
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //setHasOptionsMenu(true)
-        initViewModel()
-        recylerAdapter()
-        observeLiveData()
-
-    }
 
     private fun observeLiveData(){
         viewModel.characters.observe(viewLifecycleOwner, Observer {
@@ -52,12 +27,10 @@ class FavoriteFragment : Fragment(), AdapterInterface {
                 recyler_view_favorite.visibility = View.VISIBLE
                 favoriteAdapter.updateCharacterList(characters)
             }
-
         })
     }
 
     fun initViewModel(){
-        //viewModel = ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
         viewModel.getFavoriteCharactersFromSQLite()
     }
 
@@ -70,22 +43,19 @@ class FavoriteFragment : Fragment(), AdapterInterface {
         viewModel.updateCharacter(character)
     }
 
+    override val viewId: Int
+        get() = R.layout.fragment_favorite
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.favorite_menu,menu)
-//        super.onCreateOptionsMenu(menu, inflater)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        val action = FavoriteFragmentDirections.actionFavoriteFragmentToFeedFragment()
-//        when(item.itemId){
-//            R.id.getBack -> view?.let { Navigation.findNavController(it).navigate(action) }
-//
-//            else ->{super.onOptionsItemSelected(item)}
-//        }
-//
-//        return true
-//    }
+    override fun onCreateFinished() {
+        initViewModel()
+        recylerAdapter()
+        observeLiveData()
+    }
+
+    override fun initListeners() {
+
+    }
+
 
 
 }

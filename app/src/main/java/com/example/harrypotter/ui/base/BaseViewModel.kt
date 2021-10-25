@@ -1,4 +1,4 @@
-package com.example.harrypotter.ui.base.ViewModel
+package com.example.harrypotter.ui.base
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

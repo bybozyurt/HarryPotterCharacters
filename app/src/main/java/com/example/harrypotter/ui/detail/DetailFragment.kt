@@ -1,43 +1,24 @@
 package com.example.harrypotter.ui.detail
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.example.harrypotter.R
 import com.example.harrypotter.databinding.FragmentDetailBinding
+import com.example.harrypotter.ui.base.BaseFragment
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailFragment() : Fragment() {
+class DetailFragment() : BaseFragment<FragmentDetailBinding>() {
 
     private val viewModel : DetailViewModel by viewModels()
-    private var _binding : FragmentDetailBinding? = null
-    private val binding get() = _binding!!
-    private var characterUuid = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override val viewId: Int
+        get() = R.layout.fragment_detail
 
-        _binding = FragmentDetailBinding.inflate(inflater,container,false)
-        val view = binding.root
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        getArgument()
-        initViewModel()
-        observeLiveData()
-    }
+    var characterUuid = 0
 
     private fun observeLiveData(){
         viewModel.characterLiveData.observe(viewLifecycleOwner, Observer {
@@ -87,6 +68,15 @@ class DetailFragment() : Fragment() {
         arguments?.let {
             characterUuid = DetailFragmentArgs.fromBundle(it).characterUuid
         }
+    }
+
+    override fun onCreateFinished() {
+        getArgument()
+        initViewModel()
+    }
+
+    override fun initListeners() {
+        observeLiveData()
     }
 
 

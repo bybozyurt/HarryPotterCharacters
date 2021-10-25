@@ -11,47 +11,16 @@ import com.example.harrypotter.adapter.CharactersAdapter
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentFeedBinding
 import com.example.harrypotter.adapter.AdapterInterface
+import com.example.harrypotter.ui.base.BaseFragment
 import com.example.harrypotter.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_feed.*
 @AndroidEntryPoint
-class FeedFragment : Fragment(), AdapterInterface {
+class FeedFragment : BaseFragment<FragmentFeedBinding>(), AdapterInterface {
 
-    private var _binding : FragmentFeedBinding? = null
-    private val binding get() = _binding!!
+
     private val viewModel: FeedViewModel by viewModels()
     private lateinit var characterAdapter : CharactersAdapter
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentFeedBinding.inflate(inflater,container,false)
-        val view = binding.root
-
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
-        initViewModel()
-        observeFeedState()
-        recylerAdapter()
-        swipeRefresh()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.options_menu,menu)
@@ -64,10 +33,6 @@ class FeedFragment : Fragment(), AdapterInterface {
             R.id.favorite_menu -> view?.let { Navigation.findNavController(it).navigate(action) }
         }
         return true
-    }
-
-    fun initViewModel() {
-        viewModel.refreshData()
     }
 
     fun observeFeedState() {
@@ -125,7 +90,6 @@ class FeedFragment : Fragment(), AdapterInterface {
 
     fun recylerAdapter() {
         characterAdapter = CharactersAdapter(arrayListOf(),this)
-
         characterListRecylerView.layoutManager = LinearLayoutManager(context)
         characterListRecylerView.adapter = characterAdapter
     }
@@ -134,6 +98,19 @@ class FeedFragment : Fragment(), AdapterInterface {
         viewModel.updateCharacter(character)
     }
 
+    override val viewId: Int
+        get() = R.layout.fragment_feed
+
+    override fun onCreateFinished() {
+        setHasOptionsMenu(true)
+        viewModel.refreshData()
+        recylerAdapter()
+        observeFeedState()
+    }
+
+    override fun initListeners() {
+        swipeRefresh()
+    }
 
 
 }

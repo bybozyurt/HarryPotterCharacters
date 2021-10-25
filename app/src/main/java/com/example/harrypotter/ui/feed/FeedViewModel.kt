@@ -3,10 +3,9 @@ package com.example.harrypotter.ui.feed
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.harrypotter.base.ViewModel.BaseViewModel
+import com.example.harrypotter.ui.base.ViewModel.BaseViewModel
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.data.remote.CharactersApi
-import com.example.harrypotter.network.CharactersService
 import com.example.harrypotter.repository.CharactersRepository
 import com.example.harrypotter.util.CustomSharedPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -72,12 +71,9 @@ class FeedViewModel @Inject constructor(
                     feedState.value = FeedViewState.FeedLoadingViewState(false)
                     feedState.value = FeedViewState.FeedErrorViewState(true)
                     t.printStackTrace()
-
                 }
 
             })
-
-
     }
 
     private fun showCharacters(characterList : List<CharactersItem>) {
@@ -114,13 +110,4 @@ class FeedViewModel @Inject constructor(
         disposable.clear()
     }
 
-
-
-
-
-
-
 }
-
-
-

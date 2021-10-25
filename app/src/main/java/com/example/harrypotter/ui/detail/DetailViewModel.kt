@@ -3,9 +3,9 @@ package com.example.harrypotter.ui.detail
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.harrypotter.base.ViewModel.BaseViewModel
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.repository.CharactersRepository
+import com.example.harrypotter.ui.base.ViewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,21 +20,13 @@ class DetailViewModel @Inject constructor(application: Application, private val 
         viewModelScope.launch {
             val character = repository.getCharacter(uuid)
             characterLiveData.value = character
-            
-
         }
     }
 
     fun updateCharacter(character : CharactersItem){
         viewModelScope.launch {
             repository.updateCharacter(character)
-
         }
-
     }
-
-
-
-
 
 }

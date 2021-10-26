@@ -8,9 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-/**
- * Created by Ahmet Bozyurt on 25.10.2021
- */
+
 abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     protected abstract val viewId: Int

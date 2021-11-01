@@ -8,6 +8,7 @@ import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.data.remote.CharactersApi
 import com.example.harrypotter.repository.CharactersRepository
 import com.example.harrypotter.util.CustomSharedPreferences
+import com.example.harrypotter.util.FeedViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch

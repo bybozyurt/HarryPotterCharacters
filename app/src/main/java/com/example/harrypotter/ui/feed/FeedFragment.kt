@@ -1,8 +1,6 @@
 package com.example.harrypotter.ui.feed
 
-import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +10,7 @@ import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentFeedBinding
 import com.example.harrypotter.adapter.AdapterInterface
 import com.example.harrypotter.ui.base.BaseFragment
+import com.example.harrypotter.util.FeedViewState
 import com.example.harrypotter.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_feed.*

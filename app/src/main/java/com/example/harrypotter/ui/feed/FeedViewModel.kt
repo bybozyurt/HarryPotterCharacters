@@ -3,10 +3,10 @@ package com.example.harrypotter.ui.feed
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.harrypotter.ui.base.BaseViewModel
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.data.remote.CharactersApi
 import com.example.harrypotter.repository.CharactersRepository
+import com.example.harrypotter.ui.base.BaseViewModel
 import com.example.harrypotter.util.CustomSharedPreferences
 import com.example.harrypotter.util.FeedViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,18 +34,18 @@ class FeedViewModel @Inject constructor(
 
     fun refreshData() {
         val updateTime = customPreferences.getTime()
-        if(updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime){
+        if (updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime) {
             getDataFromSQLite()
-        } else{
+        } else {
             getDataFromAPI()
         }
     }
 
-    fun refreshFromApi(){
+    fun refreshFromApi() {
         getDataFromAPI()
     }
 
-    private fun getDataFromSQLite(){
+    private fun getDataFromSQLite() {
         feedState.value = FeedViewState.FeedLoadingViewState(true)
         viewModelScope.launch {
             val characters = repository.getAllCharacters()
@@ -63,7 +63,8 @@ class FeedViewModel @Inject constructor(
                     call: Call<List<CharactersItem>>,
                     response: Response<List<CharactersItem>>
                 ) {
-                    response.body()?.let { storeInSQLite(it)
+                    response.body()?.let {
+                        storeInSQLite(it)
                     }
                     feedState.value = FeedViewState.ShowApiMessage
                 }
@@ -77,19 +78,19 @@ class FeedViewModel @Inject constructor(
             })
     }
 
-    private fun showCharacters(characterList : List<CharactersItem>) {
+    private fun showCharacters(characterList: List<CharactersItem>) {
         feedState.value = FeedViewState.FeedCharacterList(characterList)
         feedState.value = FeedViewState.FeedErrorViewState(false)
         feedState.value = FeedViewState.FeedLoadingViewState(false)
 
     }
 
-    private fun storeInSQLite(list : List<CharactersItem>){
+    private fun storeInSQLite(list: List<CharactersItem>) {
         viewModelScope.launch {
             repository.deleteAllCharacters()
             val listLong = repository.insertAll(*list.toTypedArray())
             var i = 0
-            while (i < list.size){
+            while (i < list.size) {
                 list[i].uuid = listLong[i].toInt()
                 i++
             }

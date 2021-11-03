@@ -50,11 +50,10 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), AdapterInterfa
     override fun onCreateFinished() {
         initViewModel()
         recylerAdapter()
-        observeLiveData()
     }
 
     override fun initListeners() {
-
+        observeLiveData()
     }
 
 

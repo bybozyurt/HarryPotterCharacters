@@ -11,18 +11,18 @@ abstract class CharacterDatabase : RoomDatabase() {
 
     abstract fun characterDao() : CharactersDao
 
-    companion object {
-       @Volatile  private var instance : CharacterDatabase? = null
-
-        private val lock = Any()
-
-        operator fun invoke(context: Context) = instance ?: synchronized(lock){
-            instance ?: makeDatabase(context).also {
-                instance = it
-            }
-        }
-
-        private fun makeDatabase(context : Context) = Room.databaseBuilder(context.applicationContext, CharacterDatabase::class.java, "characterdatabase" )
-            .build()
-    }
+//    companion object {
+//       @Volatile  private var instance : CharacterDatabase? = null
+//
+//        private val lock = Any()
+//
+//        operator fun invoke(context: Context) = instance ?: synchronized(lock){
+//            instance ?: makeDatabase(context).also {
+//                instance = it
+//            }
+//        }
+//
+//        private fun makeDatabase(context : Context) = Room.databaseBuilder(context.applicationContext, CharacterDatabase::class.java, "characterdatabase" )
+//            .build()
+//    }
 }

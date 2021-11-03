@@ -10,6 +10,7 @@ import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentFavoriteBinding
 import com.example.harrypotter.adapter.AdapterInterface
 import com.example.harrypotter.ui.base.BaseFragment
+import com.example.harrypotter.util.extesions.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favorite.*
 
@@ -24,7 +25,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), AdapterInterfa
     private fun observeLiveData(){
         viewModel.characters.observe(viewLifecycleOwner, Observer {
             characters -> characters?.let {
-                recyler_view_favorite.visibility = View.VISIBLE
+                recyler_view_favorite.show()
                 favoriteAdapter.updateCharacterList(characters)
             }
         })

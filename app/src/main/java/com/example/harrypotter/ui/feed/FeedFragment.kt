@@ -17,6 +17,7 @@ import com.example.harrypotter.util.FeedViewState
 import com.example.harrypotter.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_feed.*
+import com.example.harrypotter.util.extesions.*
 
 @AndroidEntryPoint
 class FeedFragment : BaseFragment<FragmentFeedBinding>(), AdapterInterface {
@@ -45,11 +46,11 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(), AdapterInterface {
                     feedViewState.stateLoading.let {
                         with(binding) {
                             if (it) {
-                                characterLoading.visibility = View.VISIBLE
-                                characterListRecylerView.visibility = View.GONE
-                                characterError.visibility = View.GONE
+                                characterLoading.show()
+                                characterListRecylerView.hide()
+                                characterError.hide()
                             } else {
-                                characterLoading.visibility = View.GONE
+                                characterLoading.hide()
                             }
                         }
 
@@ -58,15 +59,15 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(), AdapterInterface {
                 is FeedViewState.FeedErrorViewState -> {
                     feedViewState.stateError.let {
                         if (it) {
-                            characterError.visibility = View.VISIBLE
+                            characterError.show()
                         } else {
-                            characterError.visibility = View.GONE
+                            characterError.hide()
                         }
                     }
                 }
                 is FeedViewState.FeedCharacterList -> {
                     feedViewState.characterList.let { character ->
-                        characterListRecylerView.visibility = View.VISIBLE
+                        characterListRecylerView.show()
                         characterAdapter.updateCharacterList(character)
                     }
                 }
@@ -83,9 +84,9 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(), AdapterInterface {
 
     fun swipeRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            characterListRecylerView.visibility = View.GONE
-            characterError.visibility = View.GONE
-            characterLoading.visibility = View.VISIBLE
+            characterListRecylerView.hide()
+            characterError.hide()
+            characterLoading.show()
             viewModel.refreshFromApi()
             swipeRefreshLayout.isRefreshing = false
         }

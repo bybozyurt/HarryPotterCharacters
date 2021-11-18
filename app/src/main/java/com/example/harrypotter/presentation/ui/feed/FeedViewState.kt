@@ -1,4 +1,4 @@
-package com.example.harrypotter.util
+package com.example.harrypotter.ui.feed
 
 import com.example.harrypotter.data.model.CharactersItem
 

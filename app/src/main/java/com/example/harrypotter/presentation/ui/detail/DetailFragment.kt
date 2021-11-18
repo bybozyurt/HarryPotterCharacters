@@ -1,11 +1,11 @@
-package com.example.harrypotter.ui.detail
+package com.example.harrypotter.presentation.ui.detail
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.example.harrypotter.R
 import com.example.harrypotter.databinding.FragmentDetailBinding
-import com.example.harrypotter.ui.base.BaseFragment
+import com.example.harrypotter.presentation.ui.base.BaseFragment
 import com.example.harrypotter.util.downloadFromApi
 import com.example.harrypotter.util.placeHolderProgressBar
 import dagger.hilt.android.AndroidEntryPoint

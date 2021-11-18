@@ -1,4 +1,4 @@
-package com.example.harrypotter.ui.feed
+package com.example.harrypotter.presentation.ui.feed
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.data.remote.CharactersApi
 import com.example.harrypotter.repository.CharactersRepository
-import com.example.harrypotter.ui.base.BaseViewModel
+import com.example.harrypotter.presentation.ui.base.BaseViewModel
 import com.example.harrypotter.util.CustomSharedPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable

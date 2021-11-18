@@ -16,7 +16,7 @@
         android:theme="@style/Theme.HarryPotter">
 
         <activity
-            android:name=".HarryPotter"
+            android:name=".presentation.ui.HarryPotter"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.example.harrypotter.ui.feed
+package com.example.harrypotter.presentation.ui.feed
 
 import android.view.Menu
 import android.view.MenuInflater
@@ -11,7 +11,7 @@ import com.example.harrypotter.adapter.AdapterInterface
 import com.example.harrypotter.adapter.CharactersAdapter
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentFeedBinding
-import com.example.harrypotter.ui.base.BaseFragment
+import com.example.harrypotter.presentation.ui.base.BaseFragment
 import com.example.harrypotter.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_feed.*

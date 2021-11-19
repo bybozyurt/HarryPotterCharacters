@@ -1,7 +1,5 @@
 package com.example.harrypotter.data.local
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.harrypotter.data.model.CharactersItem
 

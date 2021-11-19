@@ -1,17 +1,13 @@
-package com.example.harrypotter.repository
-
+package com.example.harrypotter.data
 
 import com.example.harrypotter.data.local.CharactersDao
 import com.example.harrypotter.data.model.CharactersItem
-import com.example.harrypotter.data.remote.CharactersApi
-import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
-
-@ViewModelScoped
-class CharactersRepository @Inject constructor(
-    private val charactersDao: CharactersDao
-) {
+/**
+ * Created by Ahmet Bozyurt on 19.11.2021
+ */
+class LocalDataSource @Inject constructor(private val charactersDao: CharactersDao) {
 
     suspend fun insertAll(vararg character: CharactersItem) : List<Long> {
         return charactersDao.insertAll(*character)
@@ -36,8 +32,4 @@ class CharactersRepository @Inject constructor(
     suspend fun getFavoriteCharacters(): List<CharactersItem> {
         return charactersDao.getFavoriteCharacters()
     }
-
-
-
-
 }

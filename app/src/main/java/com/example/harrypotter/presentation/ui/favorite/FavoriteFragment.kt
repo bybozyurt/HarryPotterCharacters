@@ -1,6 +1,5 @@
 package com.example.harrypotter.presentation.ui.favorite
 
-import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager

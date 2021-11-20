@@ -20,13 +20,13 @@ import javax.inject.Inject
 class CharactersRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
-) {
+) : CharactersRepository {
 
-//    override suspend fun getCharacterList(): Flow<Resource<List<Characters>>> {
-//        //return remoteDataSource.getCharacterList()
-//    }
+    override fun getCharacterList(): Flow<Resource<List<Characters>>> {
+        return remoteDataSource.getCharacterList()
+    }
 
-    fun getCharacters(): Call<List<CharactersItem>> {
+    fun getCharacters(): Response<List<CharactersItem>> {
         return remoteDataSource.getCharacters()
     }
 

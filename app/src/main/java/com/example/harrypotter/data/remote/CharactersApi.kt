@@ -2,6 +2,7 @@ package com.example.harrypotter.data.remote
 
 import com.example.harrypotter.data.model.CharactersItem
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 
 /**
@@ -9,5 +10,5 @@ import retrofit2.http.GET
  */
 interface CharactersApi {
     @GET("api/characters")
-    fun getCharacters() : Call<List<CharactersItem>>
+    fun getCharacters() : Response<List<CharactersItem>>
 }

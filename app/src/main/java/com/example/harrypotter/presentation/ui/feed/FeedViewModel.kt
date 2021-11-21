@@ -27,17 +27,16 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     application: Application,
-    private val repository: CharactersRepositoryImpl,
     private val useCase: GetCharactersUseCase,
     private val remoteDataSource: RemoteDataSource
 ) : BaseViewModel(application) {
 
 
-//    private val _state : MutableStateFlow<FeedViewState> = MutableStateFlow(FeedViewState.Loading)
-//    val state: StateFlow<FeedViewState> = _state
+    private val _state : MutableStateFlow<FeedViewState> = MutableStateFlow(FeedViewState.Loading)
+    val state: StateFlow<FeedViewState> = _state
 
-    private val _state = mutableListOf(FeedViewState())
-    val state : State<FeedViewState> = _state
+//    private val _state = mutableListOf(FeedViewState())
+//    val state : State<FeedViewState> = _state
 
     private val disposable = CompositeDisposable()
     private var customPreferences = CustomSharedPreferences(getApplication())

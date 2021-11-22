@@ -1,4 +1,4 @@
-package com.example.harrypotter.ui.base
+package com.example.harrypotter.presentation.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

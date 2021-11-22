@@ -4,6 +4,7 @@ package com.example.harrypotter.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.harrypotter.domain.model.Characters
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -65,10 +66,6 @@ data class CharactersItem(
     @SerializedName("species")
     val species: String,
 
-//    @ColumnInfo(name = "wand")
-//    @SerializedName("wand")
-//    val wand: Wand,
-
     @ColumnInfo(name = "yearOfBirth")
     @SerializedName("yearOfBirth")
     val yearOfBirth: String,
@@ -82,3 +79,7 @@ data class CharactersItem(
         @PrimaryKey(autoGenerate = true)
         var uuid : Int = 0
     }
+
+fun CharactersItem.toCharacters() : Characters{
+    return Characters(actor,ancestry,house, image, name, patronus)
+}

@@ -1,6 +1,5 @@
-package com.example.harrypotter.ui.favorite
+package com.example.harrypotter.presentation.ui.favorite
 
-import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,7 +8,7 @@ import com.example.harrypotter.adapter.FavoriteAdapter
 import com.example.harrypotter.data.model.CharactersItem
 import com.example.harrypotter.databinding.FragmentFavoriteBinding
 import com.example.harrypotter.adapter.AdapterInterface
-import com.example.harrypotter.ui.base.BaseFragment
+import com.example.harrypotter.presentation.ui.base.BaseFragment
 import com.example.harrypotter.util.extesions.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favorite.*

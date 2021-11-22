@@ -1,18 +1,18 @@
-package com.example.harrypotter.ui.detail
+package com.example.harrypotter.presentation.ui.detail
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.harrypotter.data.model.CharactersItem
-import com.example.harrypotter.repository.CharactersRepository
-import com.example.harrypotter.ui.base.BaseViewModel
+import com.example.harrypotter.data.repository.CharactersRepositoryImpl
+import com.example.harrypotter.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(application: Application, private val repository: CharactersRepository) : BaseViewModel(application) {
+class DetailViewModel @Inject constructor(application: Application, private val repository: CharactersRepositoryImpl) : BaseViewModel(application) {
 
     val characterLiveData = MutableLiveData<CharactersItem>()
 

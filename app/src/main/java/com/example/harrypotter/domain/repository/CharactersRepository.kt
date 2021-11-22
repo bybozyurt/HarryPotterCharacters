@@ -11,7 +11,7 @@ import retrofit2.Call
  */
 interface CharactersRepository {
 
-    suspend fun getCharacterList() : Flow<Resource<List<Characters>>>
+    fun getCharacterList() : Flow<Resource<List<Characters>>>
 
 
 }

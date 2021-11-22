@@ -12,4 +12,6 @@ import javax.inject.Inject
  */
 class GetCharactersUseCase @Inject constructor(private val repository: CharactersRepository) {
 
+    fun getCharacterList() = repository.getCharacterList()
+
 }

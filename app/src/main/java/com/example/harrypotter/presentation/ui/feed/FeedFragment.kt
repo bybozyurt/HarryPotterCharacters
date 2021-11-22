@@ -44,9 +44,6 @@ class FeedFragment @Inject constructor(private val remoteDataSource: RemoteDataS
         return true
     }
 
-    fun asd(){
-        if (state.)
-    }
 
 //    fun observeFeedState() {
 //        viewModel.feedState.observe(viewLifecycleOwner) { feedViewState ->

@@ -20,4 +20,6 @@ class GetCharactersUseCase @Inject constructor(private val repository: Character
 
     fun getCharacterList() = repository.getCharacterList()
 
+
+    
 }
